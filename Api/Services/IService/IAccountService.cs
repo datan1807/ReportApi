@@ -1,4 +1,5 @@
-﻿using Api.Models;
+﻿using Api.Dtos;
+using Api.Models;
 
 namespace Api.Services.IService
 {
@@ -9,6 +10,6 @@ namespace Api.Services.IService
         Task Update(Account account);
         Task Delete(Account account);
         Task<IEnumerable<Account>> Get();
-        Task<Account> CheckLogin(String mail, String password);
+        Task<AccountDto> CheckLogin(String mail, String password);
     }
 }

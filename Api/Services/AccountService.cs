@@ -1,4 +1,5 @@
-﻿using Api.Models;
+﻿using Api.Dtos;
+using Api.Models;
 using Api.Services.IService;
 using Api.UnitOfWorks;
 using AutoMapper;
@@ -7,16 +8,17 @@ namespace Api.Services
 {
     public class AccountService : IAccountService
     {
-        private readonly UnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public AccountService(UnitOfWork unitOfWork, IMapper mapper) { _unitOfWork = unitOfWork; 
+        public AccountService(IUnitOfWork unitOfWork, IMapper mapper) { 
+            _unitOfWork = unitOfWork; 
             _mapper = mapper;
         }
-        public async Task<Account> CheckLogin(string mail, string password)
+        public async Task<AccountDto> CheckLogin(string mail, string password)
         {
             var entity = await _unitOfWork.AccountRepository.CheckLogin(mail, password);
-            return _mapper.Map<Account>(entity);
+            return _mapper.Map<AccountDto>(entity);
         }
 
         public Task Delete(Account account)

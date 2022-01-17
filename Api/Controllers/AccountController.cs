@@ -7,10 +7,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Api.Data;
-namespace Api.Controllers
 using Api.Models;
 using Api.Services.IService;
 
+namespace Api.Controllers
 {
     [Route("api/accounts")]
     [ApiController]

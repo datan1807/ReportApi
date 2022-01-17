@@ -12,8 +12,8 @@ namespace Api.Repositories
 
         public GenericRepository(QlreportContext context)
         {
-            this._context = context;
-            this._dbSet = this._context.Set<T>();
+            _context = context;
+            _dbSet = _context.Set<T>();
         }
 
         public virtual async Task<bool> Delete(T entity)
