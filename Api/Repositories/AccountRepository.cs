@@ -13,27 +13,14 @@ namespace Api.Repositories
             _context = context;
         }
 
-        public async Task<Account> CheckLogin(string mail, string password)
+        public async Task<bool> CheckLogin(string email, string password)
         {
-            var entity = await _context.Accounts.Where(a => a.Email == mail && a.Password == password).FirstOrDefaultAsync();
-            if (entity == null)
+            var entity =  await _context.Accounts.Where(a => a.Email == email && a.Password == password).FirstOrDefaultAsync();
+            if(entity == null)
             {
-                return null;
+                return false;
             }
-            else
-            {
-                return entity;
-            }
-        }
-
-        public async Task<bool> CheckMailExisted(string mail)
-        {
-            var entity = await _context.Accounts.Where(a => a.Email == mail).FirstOrDefaultAsync();
-            if(entity != null)
-            {
-                return true;
-            }
-            return false;
+            return true;
         }
     }
 }

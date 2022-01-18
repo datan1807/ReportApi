@@ -19,14 +19,14 @@ namespace Api.Data
         {
         }
 
-        public virtual DbSet<Account> Accounts { get; set; }
-        public virtual DbSet<CouncilEvaluation> CouncilEvaluations { get; set; }
-        public virtual DbSet<Group> Groups { get; set; }
-        public virtual DbSet<Project> Projects { get; set; }
-        public virtual DbSet<Report> Reports { get; set; }
-        public virtual DbSet<Role> Roles { get; set; }
-        public virtual DbSet<Submit> Submits { get; set; }
-        public virtual DbSet<TeacherEvaluation> TeacherEvaluations { get; set; }
+        public  DbSet<Account> Accounts { get; set; }
+        public  DbSet<CouncilEvaluation> CouncilEvaluations { get; set; }
+        public  DbSet<Group> Groups { get; set; }
+        public  DbSet<Project> Projects { get; set; }
+        public  DbSet<Report> Reports { get; set; }
+        public  DbSet<Role> Roles { get; set; }
+        public  DbSet<Submit> Submits { get; set; }
+        public  DbSet<TeacherEvaluation> TeacherEvaluations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

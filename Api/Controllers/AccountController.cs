@@ -27,22 +27,15 @@ namespace Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Account>>> GetAccounts()
         {
-            return Ok();
+            var enties = await _service.GetAll();
+            return Ok(enties);
         }
-        [HttpGet("login")]
+        
+        [HttpPost("login")]
         public async Task<ActionResult> Login(string email, string password)
         {
-            
-
             var result = await _service.CheckLogin(email, password);
-            if(result != null)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest();
-            }
+            return Ok(result);
         }
 
         //// GET: api/Accounts/5

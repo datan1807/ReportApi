@@ -1,3 +1,4 @@
+
 using Api.Services;
 using Api.Services.IService;
 using Api.UnitOfWorks;
@@ -6,12 +7,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<Api.Data.QlreportContext>(
-    options =>
-    {
-        options.UseSqlServer(builder.Configuration.GetConnectionString("QLReportDB"));
-    }
-    );
+
 
 
 
@@ -24,7 +20,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
+builder.Services.AddDbContext<Api.Data.QlreportContext>(
+    options =>
+    {
+        options.UseSqlServer(builder.Configuration.GetConnectionString("QLReportDB"));
+    }
+    );
 
 var app = builder.Build();
 

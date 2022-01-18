@@ -1,15 +1,9 @@
 ﻿using Api.Dtos;
-using Api.Models;
 
 namespace Api.Services.IService
 {
-    public interface IAccountService
+    public interface IAccountService :IGenericService<AccountDto>
     {
-        Task<Account> GetById(int id);
-        Task Insert(Account account);
-        Task Update(Account account);
-        Task Delete(Account account);
-        Task<IEnumerable<Account>> Get();
-        Task<AccountDto> CheckLogin(String mail, String password);
+        Task<bool> CheckLogin(string mail, string pass);
     }
 }

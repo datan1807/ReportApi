@@ -1,36 +1,42 @@
 ﻿using Api.Data;
-using Api.Models;
 using Api.Repositories;
-using Api.Repositories.IRepositories;
 
 namespace Api.UnitOfWorks
 {
-    public class UnitOfWork :IUnitOfWork, IDisposable
+    public class UnitOfWork : IUnitOfWork
     {
-        private bool _disposed = false;
-        private readonly QlreportContext context = new QlreportContext();
+        private readonly QlreportContext _context;
+        private bool _disposed;
+        public AccountRepository AccountRepository { get; private set; }
 
-        public IAccountRepository AccountRepository { get; private set; }
-
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        public UnitOfWork()
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        public UnitOfWork(QlreportContext context)
         {
-           Init();
+            _context = context;
+            InitRepositories();
         }
-        private void Init()
+
+        private void InitRepositories()
         {
-            AccountRepository = new AccountRepository(context);
+            AccountRepository = new AccountRepository(_context);
         }
 
         public async Task CompleteAsync()
         {
-            await context.SaveChangesAsync();
+           await _context.SaveChangesAsync();
         }
 
         public void Dispose()
         {
-            context.Dispose();
+            Dispose(_disposed);
+            GC.SuppressFinalize(this);
+        }
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed)
+            {
+
+            }
+            _disposed = true;
         }
     }
 }

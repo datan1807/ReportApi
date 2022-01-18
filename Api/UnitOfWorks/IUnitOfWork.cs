@@ -1,10 +1,10 @@
-﻿using Api.Repositories.IRepositories;
+﻿using Api.Repositories;
 
 namespace Api.UnitOfWorks
 {
-    public interface IUnitOfWork
+    public interface IUnitOfWork: IDisposable
     {
-        IAccountRepository AccountRepository { get; }
+        AccountRepository AccountRepository { get; }
         Task CompleteAsync();
     }
 }

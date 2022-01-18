@@ -28,7 +28,7 @@ namespace Api.Models
         [ForeignKey(nameof(ProjetId))]
         [InverseProperty(nameof(Project.Groups))]
         public virtual Project Projet { get; set; }
-        [InverseProperty(nameof(CouncilEvaluation.Group))]
+        [InverseProperty(nameof(Models.CouncilEvaluation.Group))]
         public virtual ICollection<CouncilEvaluation> CouncilEvaluations { get; set; }
 
         [ForeignKey("GroupId")]

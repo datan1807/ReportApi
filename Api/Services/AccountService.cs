@@ -1,5 +1,4 @@
 ﻿using Api.Dtos;
-using Api.Models;
 using Api.Services.IService;
 using Api.UnitOfWorks;
 using AutoMapper;
@@ -11,37 +10,40 @@ namespace Api.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public AccountService(IUnitOfWork unitOfWork, IMapper mapper) { 
-            _unitOfWork = unitOfWork; 
+        public AccountService(IUnitOfWork unitOfWork, IMapper mapper)
+        {
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public async Task<AccountDto> CheckLogin(string mail, string password)
+
+        public async Task<bool> CheckLogin(string mail, string pass)
         {
-            var entity = await _unitOfWork.AccountRepository.CheckLogin(mail, password);
-            return _mapper.Map<AccountDto>(entity);
+            var result = await _unitOfWork.AccountRepository.CheckLogin(mail, pass);
+            return result;
         }
 
-        public Task Delete(Account account)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Account>> Get()
+        public Task Delete(object id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Account> GetById(int id)
+        public async Task<IEnumerable<AccountDto>> GetAll()
+        {
+            var entity = await _unitOfWork.AccountRepository.GetAll();
+            return _mapper.Map<IEnumerable<AccountDto>>(entity).ToList();
+        }
+
+        public Task<AccountDto> GetById(object id)
         {
             throw new NotImplementedException();
         }
 
-        public Task Insert(Account account)
+        public Task Insert(AccountDto entity)
         {
             throw new NotImplementedException();
         }
 
-        public Task Update(Account account)
+        public Task Update(AccountDto entity)
         {
             throw new NotImplementedException();
         }
