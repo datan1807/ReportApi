@@ -9,5 +9,9 @@ namespace Api.Repositories.IRepositories
         Task Update(T entity);
         Task DeleteById(T entity);
         Task Insert(T entity);
+
+        Task<IQueryable<T>> Get(Expression<Func<T, bool>> filter = null,
+            Func<IQueryable<T>, IOrderedQueryable<T>> order = null,
+            string includeProperties = "");
     }
 }

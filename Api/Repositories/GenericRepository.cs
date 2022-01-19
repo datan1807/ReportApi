@@ -2,6 +2,7 @@
 using Api.Data;
 using Api.Repositories.IRepositories;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Api.Repositories
 {
@@ -19,6 +20,11 @@ namespace Api.Repositories
         {
             _dbSet.Remove(entity);
             await _context.SaveChangesAsync();
+        }
+
+        public Task<IQueryable<T>> Get(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> order = null, string includeProperties = "")
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<IEnumerable<T>> GetAll()

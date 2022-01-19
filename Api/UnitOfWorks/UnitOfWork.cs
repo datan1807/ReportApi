@@ -32,9 +32,13 @@ namespace Api.UnitOfWorks
         }
         protected virtual void Dispose(bool disposing)
         {
-            if (_disposed)
+            if (!_disposed)
             {
-
+                if (disposing)
+                {
+                    _context.Dispose();
+                }
+                
             }
             _disposed = true;
         }
