@@ -8,6 +8,7 @@ namespace Api.UnitOfWorks
         private readonly QlreportContext _context;
         private bool _disposed;
         public AccountRepository AccountRepository { get; private set; }
+        public ReportRepository ReportRepository { get; private set; }
 
         public UnitOfWork(QlreportContext context)
         {
@@ -18,6 +19,7 @@ namespace Api.UnitOfWorks
         private void InitRepositories()
         {
             AccountRepository = new AccountRepository(_context);
+            ReportRepository = new ReportRepository(_context);
         }
 
         public async Task CompleteAsync()
