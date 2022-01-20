@@ -22,9 +22,32 @@ namespace Api.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public Task<IQueryable<T>> Get(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> order = null, string includeProperties = "")
+        public async Task<IEnumerable<T>> Get(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = "")
         {
-            throw new NotImplementedException();
+            IQueryable<T> query = _dbSet;
+
+            // Query là 1 dạng IQueryable, chỉ được thực thi khi cần giá trị list
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            // Tiếp theo, nó sẽ kèm theo các property cần thiết khi người dùng chỉ định
+            foreach (var includeProperty in includeProperties.Split
+                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                query = query.Include(includeProperty);
+            }
+
+            // Sau cùng, nó thực thi bằng cách translate thành câu lệnh SQL và gọi xuống database
+            if (orderBy != null)
+            {
+                return await orderBy(query).ToListAsync();
+            }
+            else
+            {
+                return await query.ToListAsync();
+            }
         }
 
         public async Task<IEnumerable<T>> GetAll()
