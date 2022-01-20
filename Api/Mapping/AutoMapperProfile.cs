@@ -9,6 +9,7 @@ namespace Api.Mapping
         public AutoMapperProfile()
         {
             CreateMap<Account, AccountDto>().ReverseMap();
+            CreateMap<Report, ReportDto>().ReverseMap();
         }
     }
 }
