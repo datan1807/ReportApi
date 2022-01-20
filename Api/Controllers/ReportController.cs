@@ -102,20 +102,20 @@ namespace Api.Controllers
             return CreatedAtAction("GetReport", new { id = report.Id }, report);
         }
 
-        // DELETE: api/Reports/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteReport(int id)
-        {
-            var report = await _service.GetById(id);
-            if (report == null)
-            {
-                return NotFound();
-            }
+        //// DELETE: api/Reports/5
+        //[HttpDelete("{id}")]
+        //public async Task<IActionResult> DeleteReport(int id)
+        //{
+        //    var report = await _service.GetById(id);
+        //    if (report == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            await _service.Delete(report);
+        //    await _service.Delete(report);
 
-            return NoContent();
-        }
+        //    return NoContent();
+        //}
 
         private bool ReportExists(int id)
         {
