@@ -50,7 +50,23 @@ builder.Services.AddDbContext<Api.Data.QlreportContext>(
         options.UseSqlServer(builder.Configuration.GetConnectionString("QLReportDB"));
     }
     );
-builder.Services.AddCors();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Policy1",
+        builder =>
+        {
+            builder.WithOrigins("https://report-management.azurewebsites.net",
+                                "https://www.report-management.azurewebsites.net");
+        });
+
+    options.AddPolicy("AnotherPolicy",
+        builder =>
+        {
+            builder.WithOrigins("https://www.report-management.azurewebsites.net")
+                                .AllowAnyHeader()
+                                .AllowAnyMethod();
+        });
+});
 
 var app = builder.Build();
 
