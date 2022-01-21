@@ -62,7 +62,8 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AnotherPolicy",
         builder =>
         {
-            builder.WithOrigins("https://www.report-management.azurewebsites.net")
+            builder.WithOrigins("https://www.report-management.azurewebsites.net",
+                "https://report-management.azurewebsites.net")
                                 .AllowAnyHeader()
                                 .AllowAnyMethod();
         });
