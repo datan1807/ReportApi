@@ -78,6 +78,7 @@ var app = builder.Build();
         c =>
         {
             c.SwaggerEndpoint(url: "/swagger/v1/swagger.json", name: "Report Management System V1");
+            c.RoutePrefix = string.Empty;
         });
 
 
