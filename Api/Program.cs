@@ -26,14 +26,14 @@ builder.Services.AddSwaggerGen(
         c.SwaggerDoc("v1", new OpenApiInfo
         {
             Version = "v1",
-            Title = "ToDo API",
+            Title = "Report Management API",
             Description = "Report Management ASP.NET Core Web API",
             TermsOfService = new Uri("https://example.com/terms"),
             Contact = new OpenApiContact
             {
                 Name = "Nguyen Duy Dat",
                 Email = string.Empty,
-                Url = new Uri("https://twitter.com/spboyer"),
+                Url = new Uri("https://twitter.com"),
             },
             License = new OpenApiLicense
             {
