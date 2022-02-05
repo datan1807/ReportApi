@@ -6,6 +6,7 @@ namespace Api.UnitOfWorks
     {
         AccountRepository AccountRepository { get; }
         ReportRepository ReportRepository { get; }
+        RoleRepository RoleRepository { get; }
         Task CompleteAsync();
     }
 }

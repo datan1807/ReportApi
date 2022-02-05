@@ -10,6 +10,7 @@ namespace Api.Mapping
         {
             CreateMap<Account, AccountDto>().ReverseMap();
             CreateMap<Report, ReportDto>().ReverseMap();
+            CreateMap<Role, RoleDto>().ReverseMap();
         }
     }
 }

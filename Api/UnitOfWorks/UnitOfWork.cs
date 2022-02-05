@@ -10,6 +10,8 @@ namespace Api.UnitOfWorks
         public AccountRepository AccountRepository { get; private set; }
         public ReportRepository ReportRepository { get; private set; }
 
+        public RoleRepository RoleRepository { get; private set; }
+
         public UnitOfWork(QlreportContext context)
         {
             _context = context;
@@ -20,6 +22,7 @@ namespace Api.UnitOfWorks
         {
             AccountRepository = new AccountRepository(_context);
             ReportRepository = new ReportRepository(_context);
+            RoleRepository = new RoleRepository(_context);
         }
 
         public async Task CompleteAsync()
