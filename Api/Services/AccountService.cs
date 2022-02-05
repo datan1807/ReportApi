@@ -1,5 +1,7 @@
 ﻿using Api.Dtos;
+using Api.Global;
 using Api.Models;
+using Api.Parameters;
 using Api.Services.IService;
 using Api.UnitOfWorks;
 using AutoMapper;
@@ -42,6 +44,27 @@ namespace Api.Services
         {
             var entity = await _unitOfWork.AccountRepository.GetById(id);
             return _mapper.Map<AccountDto>(entity);
+        }
+
+        public async Task<ResponseData<AccountDto>> GetByRole(AccountParameter param)
+        {
+            var entities = await _unitOfWork.AccountRepository.Get(c => c.RoleId == param.RoleId);
+            var result = PagedList<Account>.ToPagedList(entities, param.PageNumber, param.PageSize);
+            return new ResponseData<AccountDto>
+            {
+                PageIndex = result.PageIndex,
+                TotalCount = result.TotalCount,
+                PageSize = result.PageSize,
+                TotalPages = result.TotalPages,
+                HasNext = result.HasNext,
+                HasPrevious = result.HasPrevious,
+                Items = result.Select(c => new AccountDto
+                {
+                  Email = c.Email,
+                  Fullname = c.Fullname,
+                  RoleId = c.RoleId
+                }).ToList()
+            };
         }
 
         public async Task Insert(AccountDto entity)

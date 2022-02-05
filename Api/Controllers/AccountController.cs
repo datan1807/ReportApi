@@ -10,6 +10,8 @@ using Api.Data;
 using Api.Models;
 using Api.Services.IService;
 using Api.Dtos;
+using Api.Global;
+using Api.Parameters;
 
 namespace Api.Controllers
 {
@@ -31,7 +33,7 @@ namespace Api.Controllers
             var enties = await _service.GetAll();
             return Ok(enties);
         }
-        
+
         [HttpPost("login")]
         public async Task<ActionResult> Login(string email, string password)
         {
@@ -63,7 +65,7 @@ namespace Api.Controllers
                 return BadRequest();
             }
 
-            
+
 
             try
             {
@@ -89,7 +91,7 @@ namespace Api.Controllers
         [HttpPost]
         public async Task<ActionResult<AccountDto>> PostAccount(AccountDto account)
         {
-            
+
             try
             {
                 await _service.Insert(account);
@@ -127,6 +129,15 @@ namespace Api.Controllers
         private bool AccountExists(string id)
         {
             return _service.GetById(id) != null;
+        }
+        [HttpGet("role")]
+        public async Task<ActionResult<ResponseData<AccountDto>>> GetAccount([FromQuery]AccountParameter param){
+            var result = await _service.GetByRole(param);
+            if(result == null)
+            {
+                return NotFound();
+            }
+            return Ok(result);
         }
     }
 }
