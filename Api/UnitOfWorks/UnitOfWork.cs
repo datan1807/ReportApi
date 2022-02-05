@@ -9,8 +9,12 @@ namespace Api.UnitOfWorks
         private bool _disposed;
         public AccountRepository AccountRepository { get; private set; }
         public ReportRepository ReportRepository { get; private set; }
-
         public RoleRepository RoleRepository { get; private set; }
+        public GroupRepository GroupRepository { get; private set; }
+        public ProjectRepository ProjectRepository { get; private set; }
+        public CouncilEvaluationRepository CouncilEvaluationRepository { get; private set; }
+        public SubmitRepository SubmitRepository { get; private set; }
+        public TeacherEvaluationRepository TeacherEvaluationRepository { get; private set; }
 
         public UnitOfWork(QlreportContext context)
         {
@@ -23,6 +27,12 @@ namespace Api.UnitOfWorks
             AccountRepository = new AccountRepository(_context);
             ReportRepository = new ReportRepository(_context);
             RoleRepository = new RoleRepository(_context);
+            GroupRepository = new GroupRepository(_context);
+            ProjectRepository = new ProjectRepository(_context);
+            CouncilEvaluationRepository = new CouncilEvaluationRepository(_context);
+            SubmitRepository = new SubmitRepository(_context);
+            TeacherEvaluationRepository = new TeacherEvaluationRepository(_context);
+
         }
 
         public async Task CompleteAsync()
