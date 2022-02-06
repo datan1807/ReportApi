@@ -1,6 +1,8 @@
-﻿namespace Api.Services.IService
+﻿using Api.Dtos;
+
+namespace Api.Services.IService
 {
-    public interface ISubmitService
+    public interface ISubmitService:IGenericService<SubmitDto>
     {
     }
 }

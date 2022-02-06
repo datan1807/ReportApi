@@ -11,6 +11,11 @@ namespace Api.Mapping
             CreateMap<Account, AccountDto>().ReverseMap();
             CreateMap<Report, ReportDto>().ReverseMap();
             CreateMap<Role, RoleDto>().ReverseMap();
+            CreateMap<CouncilEvaluation, CouncilEvaluationDto>().ReverseMap();
+            CreateMap<Group, GroupDto>().ReverseMap();
+            CreateMap<Project, ProjectDto>().ReverseMap();
+            CreateMap<Submit, SubmitDto>().ReverseMap();
+            CreateMap<TeacherEvaluation, TeacherEvaluationDto>().ReverseMap();
         }
     }
 }

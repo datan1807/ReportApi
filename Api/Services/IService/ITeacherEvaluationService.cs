@@ -1,6 +1,8 @@
-﻿namespace Api.Services.IService
+﻿using Api.Dtos;
+
+namespace Api.Services.IService
 {
-    public interface ITeacherEvaluationService
+    public interface ITeacherEvaluationService :IGenericService<TeacherEvaluationDto>
     {
     }
 }

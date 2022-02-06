@@ -28,7 +28,7 @@ namespace Api.Controllers
 
         // GET: api/Accounts
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Account>>> GetAccounts()
+        public async Task<ActionResult<IEnumerable<AccountDto>>> GetAccounts()
         {
             var enties = await _service.GetAll();
             return Ok(enties);
