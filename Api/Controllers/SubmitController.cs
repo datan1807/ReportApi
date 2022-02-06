@@ -14,11 +14,11 @@ namespace Api.Controllers
 {
     [Route("api/submits")]
     [ApiController]
-    public class SubmitsController : ControllerBase
+    public class SubmitController : ControllerBase
     {
         private readonly ISubmitService _service;
 
-        public SubmitsController(ISubmitService service)
+        public SubmitController(ISubmitService service)
         {
             _service = service;
         }
