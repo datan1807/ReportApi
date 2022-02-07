@@ -61,9 +61,9 @@ namespace Api.Controllers
         // POST: api/Project
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<ProjectDto>> PostProject(ProjectDto project)
+        public async Task<ActionResult> PostProject([FromBody]ProjectDto project)
         {
-            await _service.Update(project);
+            await _service.Insert(project);
 
             return NoContent();
         }
