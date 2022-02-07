@@ -53,9 +53,6 @@ namespace Api.Controllers
             {
                 return BadRequest();
             }
-
-
-
             await _service.Update(@group);
             return NoContent();
         }
@@ -67,7 +64,7 @@ namespace Api.Controllers
         {
             await _service.Insert(@group);
 
-            return CreatedAtAction("GetGroup", new { id = @group.Id }, @group);
+            return NoContent();
         }
 
         // DELETE: api/Group/5
