@@ -38,6 +38,10 @@ namespace Api.Controllers
         public async Task<ActionResult> Login([FromBody]AccountDto account)
         {
             var result = await _service.CheckLogin(account.Email, account.Password);
+            if(result == null)
+            {
+                return Ok(null);
+            }
             return Ok(result);
         }
 

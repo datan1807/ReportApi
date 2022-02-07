@@ -19,10 +19,20 @@ namespace Api.Services
             _mapper = mapper;
         }
 
-        public async Task<bool> CheckLogin(string mail, string pass)
+        public async Task<AccountDto> CheckLogin(string mail, string pass)
         {
             var result = await _unitOfWork.AccountRepository.CheckLogin(mail, pass);
-            return result;
+            if(result == null)
+            {
+                return null;
+            }
+            return new AccountDto
+            {
+                Email = result.Email,
+                RoleName = result.RoleName,
+                Fullname = result.Fullname,
+                RoleId = result.RoleId
+            };
         }
 
         public async Task Delete(AccountDto entity)

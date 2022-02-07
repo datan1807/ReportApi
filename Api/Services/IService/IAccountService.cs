@@ -6,7 +6,7 @@ namespace Api.Services.IService
 {
     public interface IAccountService :IGenericService<AccountDto>
     {
-        Task<bool> CheckLogin(string mail, string pass);
+        Task<AccountDto> CheckLogin(string mail, string pass);
         Task<ResponseData<AccountDto>> GetByRole(AccountParameter param);
     }
 }
