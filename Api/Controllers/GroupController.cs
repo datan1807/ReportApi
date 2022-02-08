@@ -67,13 +67,6 @@ namespace Api.Controllers
             return NoContent();
         }
 
-        // DELETE: api/Group/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteGroup(int id)
-        {
-
-
-            return NoContent();
-        }
+       
     }
 }

@@ -115,20 +115,7 @@ namespace Api.Controllers
             return CreatedAtAction("GetAccount", new { id = account.Email }, account);
         }
 
-        // DELETE: api/Accounts/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAccount(string id)
-        {
-            var account = await _service.GetById(id);
-            if (account == null)
-            {
-                return NotFound();
-            }
-
-            await _service.Delete(account);
-
-            return NoContent();
-        }
+       
 
         private bool AccountExists(string id)
         {

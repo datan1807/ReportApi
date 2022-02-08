@@ -68,14 +68,5 @@ namespace Api.Controllers
             return NoContent();
         }
 
-        // DELETE: api/Submits/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteSubmit(int id)
-        {
-            
-
-            return NoContent();
-        }
-
     }
 }

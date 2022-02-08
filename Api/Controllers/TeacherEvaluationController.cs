@@ -68,13 +68,5 @@ namespace Api.Controllers
             await _service.Insert(teacherEvaluation);
             return NoContent();
         }
-
-        // DELETE: api/TeacherEvaluation/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTeacherEvaluation(int id)
-        {
-            return NoContent();
-        }
-
     }
 }
