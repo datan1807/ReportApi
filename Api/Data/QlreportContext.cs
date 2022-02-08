@@ -20,6 +20,7 @@ namespace Api.Data
         }
 
         public virtual DbSet<Account> Accounts { get; set; }
+        public virtual DbSet<AccountGroup> AccountGroups { get; set; }
         public virtual DbSet<CouncilEvaluation> CouncilEvaluations { get; set; }
         public virtual DbSet<Group> Groups { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
@@ -37,21 +38,21 @@ namespace Api.Data
                     .HasForeignKey(d => d.RoleId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Account_Role");
+            });
 
-                entity.HasMany(d => d.Groups)
-                    .WithMany(p => p.Accounts)
-                    .UsingEntity<Dictionary<string, object>>(
-                        "AccountGroup",
-                        l => l.HasOne<Group>().WithMany().HasForeignKey("GroupId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_Account_Group_Group"),
-                        r => r.HasOne<Account>().WithMany().HasForeignKey("AccountId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_Account_Group_Account"),
-                        j =>
-                        {
-                            j.HasKey("AccountId", "GroupId");
+            modelBuilder.Entity<AccountGroup>(entity =>
+            {
+                entity.HasOne(d => d.Account)
+                    .WithMany(p => p.AccountGroups)
+                    .HasForeignKey(d => d.AccountId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Account_Group_Account");
 
-                            j.ToTable("Account_Group");
-
-                            j.IndexerProperty<string>("AccountId").HasMaxLength(50);
-                        });
+                entity.HasOne(d => d.Group)
+                    .WithMany(p => p.AccountGroups)
+                    .HasForeignKey(d => d.GroupId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Account_Group_Group");
             });
 
             modelBuilder.Entity<CouncilEvaluation>(entity =>

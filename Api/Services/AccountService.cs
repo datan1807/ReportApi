@@ -1,4 +1,5 @@
 ﻿using Api.Dtos;
+using Api.Dtos.ExtendedDto;
 using Api.Global;
 using Api.Models;
 using Api.Parameters;
@@ -29,7 +30,6 @@ namespace Api.Services
             return new AccountDto
             {
                 Email = result.Email,
-                RoleName = result.RoleName,
                 Fullname = result.Fullname,
                 RoleId = result.RoleId
             };
@@ -56,11 +56,11 @@ namespace Api.Services
             return _mapper.Map<AccountDto>(entity);
         }
 
-        public async Task<ResponseData<AccountDto>> GetByRole(AccountParameter param)
+        public async Task<ResponseData<ExtendedAccountDto>> GetByRole(AccountParameter param)
         {
             var entities = await _unitOfWork.AccountRepository.Get(c => c.RoleId == param.RoleId);
             var result = PagedList<Account>.ToPagedList(entities, param.PageNumber, param.PageSize);
-            return new ResponseData<AccountDto>
+            return new ResponseData<ExtendedAccountDto>
             {
                 PageIndex = result.PageIndex,
                 TotalCount = result.TotalCount,
@@ -68,11 +68,12 @@ namespace Api.Services
                 TotalPages = result.TotalPages,
                 HasNext = result.HasNext,
                 HasPrevious = result.HasPrevious,
-                Items = result.Select(c => new AccountDto
+                Items = result.Select(c => new ExtendedAccountDto
                 {
                   Email = c.Email,
                   Fullname = c.Fullname,
-                  RoleId = c.RoleId
+                  RoleId = c.RoleId,
+                  RoleName = c.Role.Name
                 }).ToList()
             };
         }

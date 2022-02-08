@@ -13,8 +13,8 @@ namespace Api.Models
     {
         public Account()
         {
+            AccountGroups = new HashSet<AccountGroup>();
             TeacherEvaluations = new HashSet<TeacherEvaluation>();
-            Groups = new HashSet<Group>();
         }
 
         [Key]
@@ -31,11 +31,9 @@ namespace Api.Models
         [ForeignKey(nameof(RoleId))]
         [InverseProperty("Accounts")]
         public virtual Role Role { get; set; }
+        [InverseProperty(nameof(AccountGroup.Account))]
+        public virtual ICollection<AccountGroup> AccountGroups { get; set; }
         [InverseProperty(nameof(TeacherEvaluation.Teacher))]
         public virtual ICollection<TeacherEvaluation> TeacherEvaluations { get; set; }
-
-        [ForeignKey("AccountId")]
-        [InverseProperty(nameof(Group.Accounts))]
-        public virtual ICollection<Group> Groups { get; set; }
     }
 }

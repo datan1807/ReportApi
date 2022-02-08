@@ -13,8 +13,8 @@ namespace Api.Models
     {
         public Group()
         {
+            AccountGroups = new HashSet<AccountGroup>();
             CouncilEvaluations = new HashSet<CouncilEvaluation>();
-            Accounts = new HashSet<Account>();
         }
 
         [Key]
@@ -28,11 +28,9 @@ namespace Api.Models
         [ForeignKey(nameof(ProjectId))]
         [InverseProperty("Groups")]
         public virtual Project Project { get; set; }
+        [InverseProperty(nameof(AccountGroup.Group))]
+        public virtual ICollection<AccountGroup> AccountGroups { get; set; }
         [InverseProperty(nameof(CouncilEvaluation.Group))]
         public virtual ICollection<CouncilEvaluation> CouncilEvaluations { get; set; }
-
-        [ForeignKey("GroupId")]
-        [InverseProperty(nameof(Account.Groups))]
-        public virtual ICollection<Account> Accounts { get; set; }
     }
 }

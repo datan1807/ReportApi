@@ -12,6 +12,7 @@ namespace Api.UnitOfWorks
         CouncilEvaluationRepository CouncilEvaluationRepository { get; }    
         SubmitRepository SubmitRepository { get; }
         TeacherEvaluationRepository TeacherEvaluationRepository { get; }
+        AccountGroupRepository AccountGroupRepository { get; }
         Task CompleteAsync();
     }
 }

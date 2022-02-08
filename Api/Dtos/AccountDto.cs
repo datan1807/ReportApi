@@ -6,7 +6,6 @@
         public string? Password { get; set; }
         public string? Fullname { get; set; }
         public int RoleId { get; set; }
-        public string? RoleName { get; set; }
         
     }
 }

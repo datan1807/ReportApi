@@ -1,6 +1,8 @@
 ﻿using Api.Dtos;
 using AutoMapper;
 using Api.Models;
+using Api.Dtos.ExtendedDto;
+using Api.Models.ExtendedModels;
 
 namespace Api.Mapping
 {
@@ -16,6 +18,7 @@ namespace Api.Mapping
             CreateMap<Project, ProjectDto>().ReverseMap();
             CreateMap<Submit, SubmitDto>().ReverseMap();
             CreateMap<TeacherEvaluation, TeacherEvaluationDto>().ReverseMap();
+            CreateMap<AccountGroup, AccountGroupDto>().ReverseMap();
         }
     }
 }

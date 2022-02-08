@@ -12,6 +12,7 @@ using Api.Services.IService;
 using Api.Dtos;
 using Api.Global;
 using Api.Parameters;
+using Api.Dtos.ExtendedDto;
 
 namespace Api.Controllers
 {
@@ -93,26 +94,12 @@ namespace Api.Controllers
         // POST: api/Accounts
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<AccountDto>> PostAccount(AccountDto account)
+        public async Task<ActionResult<AccountDto>> PostAccount([FromBody]AccountDto account)
         {
 
-            try
-            {
                 await _service.Insert(account);
-            }
-            catch (DbUpdateException)
-            {
-                if (AccountExists(account.Email))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return CreatedAtAction("GetAccount", new { id = account.Email }, account);
+            return NoContent();
+           
         }
 
        
@@ -122,7 +109,7 @@ namespace Api.Controllers
             return _service.GetById(id) != null;
         }
         [HttpGet("role")]
-        public async Task<ActionResult<ResponseData<AccountDto>>> GetAccount([FromQuery]AccountParameter param){
+        public async Task<ActionResult<ResponseData<ExtendedAccountDto>>> GetAccount([FromQuery]AccountParameter param){
             var result = await _service.GetByRole(param);
             if(result == null)
             {
