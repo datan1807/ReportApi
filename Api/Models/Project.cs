@@ -25,7 +25,7 @@ namespace Api.Models
         [StringLength(250)]
         public string Description { get; set; }
 
-        [InverseProperty(nameof(Group.Projet))]
+        [InverseProperty(nameof(Group.Project))]
         public virtual ICollection<Group> Groups { get; set; }
         [InverseProperty(nameof(Submit.Project))]
         public virtual ICollection<Submit> Submits { get; set; }

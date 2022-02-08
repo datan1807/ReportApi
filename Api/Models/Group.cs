@@ -23,12 +23,12 @@ namespace Api.Models
         [StringLength(50)]
         public string Semester { get; set; }
         public int Year { get; set; }
-        public int? ProjetId { get; set; }
+        public int ProjectId { get; set; }
 
-        [ForeignKey(nameof(ProjetId))]
-        [InverseProperty(nameof(Project.Groups))]
-        public virtual Project Projet { get; set; }
-        [InverseProperty(nameof(Models.CouncilEvaluation.Group))]
+        [ForeignKey(nameof(ProjectId))]
+        [InverseProperty("Groups")]
+        public virtual Project Project { get; set; }
+        [InverseProperty(nameof(CouncilEvaluation.Group))]
         public virtual ICollection<CouncilEvaluation> CouncilEvaluations { get; set; }
 
         [ForeignKey("GroupId")]
