@@ -6,5 +6,6 @@ namespace Api.Repositories.IRepositories
     public interface IAccountGroupRepository :IGenericRepository<AccountGroup>
     {
         Task<IEnumerable<ExtendedAccountGroup>> FindByGroupId(int id);
+        Task<IEnumerable<Group>> FindByAccount(string email);
     }
 }

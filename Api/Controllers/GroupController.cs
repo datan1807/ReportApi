@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Api.Dtos;
+using Api.Dtos.ExtendedDto;
 using Api.Services.IService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -67,6 +68,15 @@ namespace Api.Controllers
             return NoContent();
         }
 
-       
+       [HttpGet("get-by-account")]
+       public async Task<ActionResult<IEnumerable<ExtendedGroupDto>>> FindByAccount(string email)
+        {
+            var entities = await _service.GetGroupByAccount(email);
+            if(entities == null)
+            {
+                return NoContent();
+            }
+            return Ok(@entities);
+        }
     }
 }

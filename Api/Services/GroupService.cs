@@ -1,4 +1,5 @@
 ﻿using Api.Dtos;
+using Api.Dtos.ExtendedDto;
 using Api.Models;
 using Api.Services.IService;
 using Api.UnitOfWorks;
@@ -13,7 +14,7 @@ namespace Api.Services
 
         public GroupService(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _unitOfWork = unitOfWork;   
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
         public Task Delete(GroupDto entity)
@@ -31,6 +32,19 @@ namespace Api.Services
         {
             var entity = await _unitOfWork.GroupRepository.GetById(id);
             return _mapper.Map<GroupDto>(entity);
+        }
+
+        public async Task<IEnumerable<ExtendedGroupDto>> GetGroupByAccount(string accountId)
+        {
+            var entities = await _unitOfWork.AccountGroupRepository.FindByAccount(accountId);
+            return entities.Select(x => new ExtendedGroupDto
+            {
+                Id = x.Id,
+                ProjectId = x.ProjectId,
+                ProjectName = x.Project.Name,
+                Semester = x.Semester,
+                Year = x.Year
+            });
         }
 
         public async Task Insert(GroupDto entity)

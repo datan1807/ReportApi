@@ -15,6 +15,18 @@ namespace Api.Repositories
             _context = context;
         }
 
+        public async Task<IEnumerable<Group>> FindByAccount(string email)
+        {
+            var entities = await _context.AccountGroups.Where(c => c.AccountId == email).Select(g => new Group {
+                Id = g.Id,
+                Project = g.Group.Project,
+                ProjectId = g.Group.ProjectId,
+                Semester = g.Group.Semester,
+                Year = g.Group.Year,
+            }).ToListAsync();
+            return entities;
+        }
+
         public async Task<IEnumerable<ExtendedAccountGroup>> FindByGroupId(int id)
         {
             var entities =await _context.AccountGroups.Where(c => c.GroupId == id).Select(e => new ExtendedAccountGroup
