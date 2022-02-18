@@ -36,38 +36,43 @@ namespace Api.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult> Login([FromBody]AccountDto account)
+        public async Task<ActionResult> Login(string email, string password)
         {
-            var result = await _service.CheckLogin(account.Email, account.Password);
+            var result = await _service.CheckLogin(email, password);
             if(result == null)
             {
-                return Ok(null);
+                return Ok("failed");
             }
-            return Ok(result);
+            return Ok("success");
         }
 
         // GET: api/Accounts/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<AccountDto>> GetAccount(string id)
+        public async Task<ResponseObject> GetAccount(string id)
         {
             var account = await _service.GetById(id);
 
             if (account == null)
             {
-                return NotFound();
+                return new ResponseObject { data = null, status = "failed", message = "Account is not found" };
             }
 
-            return account;
+            return new ResponseObject { data = account, status = "success", message = "Success"};
         }
 
         // PUT: api/Accounts/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAccount(string id, AccountDto account)
+        public async Task<ResponseObject> PutAccount(string id, AccountDto account)
         {
             if (id != account.Email)
             {
-                return BadRequest();
+                return new ResponseObject
+                {
+                    status = "failed",
+                    data = "",
+                    message = "Account is not found"
+                };
             }
 
 
@@ -80,7 +85,12 @@ namespace Api.Controllers
             {
                 if (!AccountExists(id))
                 {
-                    return NotFound();
+                    return new ResponseObject
+                    {
+                        status = "failed",
+                        data = "",
+                        message = "Account is not found"
+                    };
                 }
                 else
                 {
@@ -88,7 +98,12 @@ namespace Api.Controllers
                 }
             }
 
-            return NoContent();
+            return new ResponseObject
+            {
+                status = "success",
+                data = "",
+                message = ""
+            };
         }
 
         // POST: api/Accounts

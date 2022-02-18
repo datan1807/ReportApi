@@ -27,6 +27,10 @@ namespace Api.Models
         [StringLength(50)]
         public string Fullname { get; set; }
         public int RoleId { get; set; }
+        [Column(TypeName = "date")]
+        public DateTime? Birthday { get; set; }
+        [StringLength(10)]
+        public string Phone { get; set; }
 
         [ForeignKey(nameof(RoleId))]
         [InverseProperty("Accounts")]

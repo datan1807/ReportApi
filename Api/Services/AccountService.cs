@@ -31,7 +31,9 @@ namespace Api.Services
             {
                 Email = result.Email,
                 Fullname = result.Fullname,
-                RoleId = result.RoleId
+                RoleId = result.RoleId,
+                Birthday = result.Birthday,
+                Phone = result.Phone,
             };
         }
 

@@ -33,6 +33,8 @@ namespace Api.Data
         {
             modelBuilder.Entity<Account>(entity =>
             {
+                entity.Property(e => e.Phone).IsFixedLength();
+
                 entity.HasOne(d => d.Role)
                     .WithMany(p => p.Accounts)
                     .HasForeignKey(d => d.RoleId)
