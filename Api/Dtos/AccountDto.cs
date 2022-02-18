@@ -8,6 +8,6 @@
         public int RoleId { get; set; }
         public DateTime? Birthday { get; set; }
         public string? Phone { get; set; }
-        
+        public string? Address { get; set; }
     }
 }

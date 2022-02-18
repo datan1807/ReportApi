@@ -34,6 +34,7 @@ namespace Api.Services
                 RoleId = result.RoleId,
                 Birthday = result.Birthday,
                 Phone = result.Phone,
+                Address = result.Address
             };
         }
 
