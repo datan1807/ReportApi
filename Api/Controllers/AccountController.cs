@@ -43,7 +43,7 @@ namespace Api.Controllers
             {
                 return Ok("failed");
             }
-            return Ok("success");
+            return Ok(result);
         }
 
         // GET: api/Accounts/5
