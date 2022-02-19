@@ -36,9 +36,9 @@ namespace Api.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult> Login(string email, string password)
+        public async Task<ActionResult> Login([FromBody] AccountDto dto)
         {
-            var result = await _service.CheckLogin(email, password);
+            var result = await _service.CheckLogin(dto.Email, dto.Password);
             if(result == null)
             {
                 return Ok("failed");
