@@ -33,6 +33,8 @@ namespace Api.Models
         public string Phone { get; set; }
         [StringLength(150)]
         public string Address { get; set; }
+        [StringLength(10)]
+        public string Status { get; set; }
 
         [ForeignKey(nameof(RoleId))]
         [InverseProperty("Accounts")]
