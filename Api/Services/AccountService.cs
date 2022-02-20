@@ -77,7 +77,11 @@ namespace Api.Services
                   Email = c.Email,
                   Fullname = c.Fullname,
                   RoleId = c.RoleId,
-                  RoleName = c.Role.Name
+                  RoleName = c.Role.Name,
+                  Address = c.Address,
+                  Birthday = c.Birthday,
+                  Phone = c.Phone,
+                  Status = c.Status
                 }).ToList()
             };
         }
@@ -88,6 +92,33 @@ namespace Api.Services
             {
                 await _unitOfWork.AccountRepository.Insert(_mapper.Map<Account>(entity));
             }
+        }
+
+        public async Task<ResponseData<ExtendedAccountDto>> Search(AccountParameter param)
+        {
+            var entities = await _unitOfWork.AccountRepository.Search(param);
+            var data = new ResponseData<ExtendedAccountDto>
+            {
+                TotalCount = entities.Count,
+                PageSize = entities.PageSize,
+                HasNext = entities.HasNext,
+                HasPrevious = entities.HasPrevious,
+                PageIndex = entities.PageIndex,
+                TotalPages = entities.TotalPages,
+                Items = entities.Select(c => new ExtendedAccountDto
+                {
+                    Email= c.Email,
+                    Fullname= c.Fullname,
+                    Address = c.Address,
+                    Birthday= c.Birthday,   
+                    Phone= c.Phone, 
+                    RoleId = c.RoleId,
+                    RoleName = c.RoleName,
+                    Status = c.Status
+                }).ToList()
+            };
+            return data;
+            
         }
 
         public async Task Update(AccountDto entity)

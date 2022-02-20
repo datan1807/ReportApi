@@ -2,9 +2,10 @@
 {
     public class AccountParameter :GenericParameter
     {
-        public int ? AccountId { get; set; }
-        public string? AccountName { get; set; }
-        public int? RoleId { get; set; }
+        public string Email { get; set; } = "";
+        public string Fullname { get; set; } = "";
+        public int RoleId { get; set; } = 0;
+        public string Status { get; set; } = "";
 
     }
 }

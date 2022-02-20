@@ -132,5 +132,16 @@ namespace Api.Controllers
             }
             return Ok(result);
         }
+        [HttpGet("search")]
+        public async Task<ResponseObject> Search ([FromQuery]AccountParameter param)
+        {
+            var entities = await _service.Search(param);
+            return new ResponseObject
+            {
+                data = entities,
+                message = "sucess",
+                status = "success",
+            };
+        }
     }
 }
