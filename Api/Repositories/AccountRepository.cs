@@ -36,6 +36,22 @@ namespace Api.Repositories
             return entity;
         }
 
+        public async Task<ExtendedAccount> GetByEmail(string email)
+        {
+            var entity = await _context.Accounts.Where(c => c.Email == email).Select(c => new ExtendedAccount
+            {
+                Email=c.Email,
+                Fullname=c.Fullname,
+                Address = c.Address,
+                Birthday = c.Birthday,
+                Phone = c.Phone,
+                RoleId=c.RoleId,
+                RoleName=c.Role.Name,
+                Status = c.Status
+            }).FirstOrDefaultAsync();
+            return entity;
+        }
+
         public async Task<PagedList<ExtendedAccount>> Search(AccountParameter param)
         {
             var entity = await _context.Accounts.Where(a => a.Email.Contains(param.Email) && a.Fullname.Contains(param.Fullname)).Select(e => new ExtendedAccount

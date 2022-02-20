@@ -8,7 +8,7 @@ namespace Api.Services.IService
     public interface IAccountService :IGenericService<AccountDto>
     {
         Task<AccountDto> CheckLogin(string mail, string pass);
-        Task<ResponseData<ExtendedAccountDto>> GetByRole(AccountParameter param);
         Task<ResponseData<ExtendedAccountDto>> Search(AccountParameter param);
+        Task<ExtendedAccountDto> GetByEmail(string email);
     }
 }

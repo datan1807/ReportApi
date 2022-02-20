@@ -9,7 +9,7 @@ namespace Api.Repositories.IRepositories
     {
         Task<ExtendedAccount> CheckLogin(string email, string password);
         Task<PagedList<ExtendedAccount>> Search(AccountParameter param);
-
+        Task<ExtendedAccount> GetByEmail(string email);
     }
 }
 

@@ -123,15 +123,7 @@ namespace Api.Controllers
         {
             return _service.GetById(id) != null;
         }
-        [HttpGet("role")]
-        public async Task<ActionResult<ResponseData<ExtendedAccountDto>>> GetAccount([FromQuery]AccountParameter param){
-            var result = await _service.GetByRole(param);
-            if(result == null)
-            {
-                return NotFound();
-            }
-            return Ok(result);
-        }
+       
         [HttpGet("search")]
         public async Task<ResponseObject> Search ([FromQuery]AccountParameter param)
         {
@@ -139,6 +131,26 @@ namespace Api.Controllers
             return new ResponseObject
             {
                 data = entities,
+                message = "sucess",
+                status = "success",
+            };
+        }
+        [HttpGet("detail/{email}")]
+        public async Task<ResponseObject> GetDetail(string email)
+        {
+            var entity = await _service.GetByEmail(email);
+            if(entity == null)
+            {
+                return new ResponseObject
+                {
+                    data = "",
+                    message = "Account is not found",
+                    status = "failed",
+                };
+            }
+            return new ResponseObject
+            {
+                data = entity,
                 message = "sucess",
                 status = "success",
             };

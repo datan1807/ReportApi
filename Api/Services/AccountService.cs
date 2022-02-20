@@ -54,36 +54,33 @@ namespace Api.Services
             return _mapper.Map<IEnumerable<AccountDto>>(entity).ToList();
         }
 
+        public async Task<ExtendedAccountDto> GetByEmail(string email)
+        {
+            var entity = await _unitOfWork.AccountRepository.GetByEmail(email);
+            if(entity == null)
+            {
+                return null;
+            }
+            else
+            {
+                return new ExtendedAccountDto
+                {
+                    Email = entity.Email,
+                    Address = entity.Address,
+                    Birthday = entity.Birthday,
+                    Fullname = entity.Fullname,
+                    Phone = entity.Phone,
+                    RoleId = entity.RoleId,
+                    RoleName = entity.RoleName,
+                    Status = entity.Status
+                };
+            }
+        }
+
         public async Task<AccountDto> GetById(object id)
         {
             var entity = await _unitOfWork.AccountRepository.GetById(id);
             return _mapper.Map<AccountDto>(entity);
-        }
-
-        public async Task<ResponseData<ExtendedAccountDto>> GetByRole(AccountParameter param)
-        {
-            var entities = await _unitOfWork.AccountRepository.Get(c => c.RoleId == param.RoleId);
-            var result = PagedList<Account>.ToPagedList(entities, param.PageNumber, param.PageSize);
-            return new ResponseData<ExtendedAccountDto>
-            {
-                PageIndex = result.PageIndex,
-                TotalCount = result.TotalCount,
-                PageSize = result.PageSize,
-                TotalPages = result.TotalPages,
-                HasNext = result.HasNext,
-                HasPrevious = result.HasPrevious,
-                Items = result.Select(c => new ExtendedAccountDto
-                {
-                  Email = c.Email,
-                  Fullname = c.Fullname,
-                  RoleId = c.RoleId,
-                  RoleName = c.Role.Name,
-                  Address = c.Address,
-                  Birthday = c.Birthday,
-                  Phone = c.Phone,
-                  Status = c.Status
-                }).ToList()
-            };
         }
 
         public async Task Insert(AccountDto entity)
