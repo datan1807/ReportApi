@@ -25,6 +25,8 @@ namespace Api.Models
         public DateTime StartTime { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime EndTime { get; set; }
+        [StringLength(10)]
+        public string Status { get; set; }
 
         [InverseProperty(nameof(Submit.Report))]
         public virtual ICollection<Submit> Submits { get; set; }

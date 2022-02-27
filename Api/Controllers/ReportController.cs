@@ -26,7 +26,7 @@ namespace Api.Controllers
 
         // GET: api/Reports
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Report>>> GetReports()
+        public async Task<ActionResult<IEnumerable<ReportDto>>> GetReports()
         {
             var enties = await _service.GetAll();
             return Ok(enties);

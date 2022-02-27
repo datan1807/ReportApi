@@ -24,6 +24,8 @@ namespace Api.Models
         public string Name { get; set; }
         [StringLength(250)]
         public string Description { get; set; }
+        [StringLength(10)]
+        public string Status { get; set; }
 
         [InverseProperty(nameof(Group.Project))]
         public virtual ICollection<Group> Groups { get; set; }

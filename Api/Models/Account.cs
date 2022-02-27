@@ -33,6 +33,7 @@ namespace Api.Models
         public string Phone { get; set; }
         [StringLength(150)]
         public string Address { get; set; }
+        [Required]
         [StringLength(10)]
         public string Status { get; set; }
 

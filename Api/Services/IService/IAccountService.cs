@@ -10,5 +10,6 @@ namespace Api.Services.IService
         Task<AccountDto> CheckLogin(string mail, string pass);
         Task<ResponseData<ExtendedAccountDto>> Search(AccountParameter param);
         Task<ExtendedAccountDto> GetByEmail(string email);
+        Task<bool> UpdateStatus(string email);
     }
 }

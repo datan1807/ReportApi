@@ -72,6 +72,8 @@ namespace Api.Data
 
             modelBuilder.Entity<Group>(entity =>
             {
+                entity.Property(e => e.GroupCode).IsFixedLength();
+
                 entity.HasOne(d => d.Project)
                     .WithMany(p => p.Groups)
                     .HasForeignKey(d => d.ProjectId)
@@ -79,9 +81,16 @@ namespace Api.Data
                     .HasConstraintName("FK_Group_Project");
             });
 
+            modelBuilder.Entity<Project>(entity =>
+            {
+                entity.Property(e => e.Status).IsFixedLength();
+            });
+
             modelBuilder.Entity<Report>(entity =>
             {
                 entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Status).IsFixedLength();
             });
 
             modelBuilder.Entity<Submit>(entity =>

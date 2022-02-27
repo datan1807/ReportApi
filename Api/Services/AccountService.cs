@@ -123,5 +123,19 @@ namespace Api.Services
             var dto = _mapper.Map<Account>(entity);
             await _unitOfWork.AccountRepository.Update(dto);
         }
+
+        public async Task<bool> UpdateStatus(string email)
+        {
+            var dto =await _unitOfWork.AccountRepository.GetById(email);
+            if (dto == null)
+            {
+                return false;
+            }
+            else
+            dto.Status = "Inactive";
+            await _unitOfWork.AccountRepository.Update(dto);
+            await _unitOfWork.CompleteAsync();
+            return true;
+        }
     }
 }
