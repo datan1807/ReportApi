@@ -1,6 +1,8 @@
 ﻿using Api.Dtos;
 using Api.Dtos.ExtendedDto;
+using Api.Global;
 using Api.Models;
+using Api.Parameters;
 using Api.Services.IService;
 using Api.UnitOfWorks;
 using AutoMapper;
@@ -43,7 +45,6 @@ namespace Api.Services
                 return new ExtendedSubmitDto
                 {
                     Id = entity.Id,
-                    ProjectId = entity.ProjectId,
                     ProjectName = entity.ProjectName,
                     ReportId = entity.ReportId,
                     ReportName = entity.ReportName,
@@ -63,6 +64,30 @@ namespace Api.Services
             var dto = _mapper.Map<Submit>(entity);
             await _unitOfWork.SubmitRepository.Insert(dto);
             await _unitOfWork.CompleteAsync();
+        }
+
+        public async Task<PagingData<ExtendedSubmitDto>> Search(SubmitParameter param)
+        {
+            var entities = await _unitOfWork.SubmitRepository.Search(param);
+            return new PagingData<ExtendedSubmitDto>
+            {
+                TotalCount = entities.Count,
+                PageSize = entities.PageSize,
+                HasNext = entities.HasNext,
+                HasPrevious = entities.HasPrevious,
+                PageIndex = entities.PageIndex,
+                TotalPages = entities.TotalPages,
+                Items = entities.Select(x => new ExtendedSubmitDto { 
+                    Id = x.Id,
+                    ProjectId = x.ProjectId,
+                    ProjectName = x.ProjectName,
+                    ReportId = x.ReportId,
+                    ReportName= x.ReportName,
+                    ReportUrl= x.ReportUrl,
+                    SubmitTime= x.SubmitTime,
+                    GroupId = x.GroupId
+                }).ToList(),
+            };
         }
 
         public async Task Update(SubmitDto entity)

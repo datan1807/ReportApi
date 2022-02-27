@@ -14,7 +14,6 @@ namespace Api.Models
         public Project()
         {
             Groups = new HashSet<Group>();
-            Submits = new HashSet<Submit>();
         }
 
         [Key]
@@ -29,7 +28,5 @@ namespace Api.Models
 
         [InverseProperty(nameof(Group.Project))]
         public virtual ICollection<Group> Groups { get; set; }
-        [InverseProperty(nameof(Submit.Project))]
-        public virtual ICollection<Submit> Submits { get; set; }
     }
 }

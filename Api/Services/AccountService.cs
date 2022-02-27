@@ -91,10 +91,10 @@ namespace Api.Services
             }
         }
 
-        public async Task<ResponseData<ExtendedAccountDto>> Search(AccountParameter param)
+        public async Task<PagingData<ExtendedAccountDto>> Search(AccountParameter param)
         {
             var entities = await _unitOfWork.AccountRepository.Search(param);
-            var data = new ResponseData<ExtendedAccountDto>
+            var data = new PagingData<ExtendedAccountDto>
             {
                 TotalCount = entities.Count,
                 PageSize = entities.PageSize,

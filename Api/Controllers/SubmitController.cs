@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Api.Services.IService;
 using Api.Dtos;
 using Api.Global;
+using Api.Parameters;
 
 namespace Api.Controllers
 {
@@ -41,14 +42,15 @@ namespace Api.Controllers
             {
                 return new ResponseObject
                 {
-                    status = "NotFound"
+                    status = "failed",
+                    message = "Submit is not found!"
                 };
             }
 
             return new ResponseObject
             {
                 data = submit,
-                status = "success"
+                status ="success"
             };
         }
 
@@ -61,7 +63,8 @@ namespace Api.Controllers
             {
                 return new ResponseObject
                 {
-                    status = "NotFound"
+                    status = "failed",
+                    message = "Submit is not found!"
                 };
             }
 
@@ -73,17 +76,27 @@ namespace Api.Controllers
         // POST: api/Submits
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult> PostSubmit(SubmitDto submit)
-        {
-            await _service.Insert(submit);
-            return NoContent();
+        public async Task<ResponseObject> PostSubmit([FromBody] SubmitDto submit)
+        {       
+            try
+            {
+                await _service.Insert(submit);
+                return new ResponseObject { status="success" };
+            }catch (Exception ex)
+            {
+                return new ResponseObject { status = "failed" };
+            }
         }
         [HttpGet("get-by-report-and-project")]
         public async Task<ResponseObject> GetByReportAndProject(int reportId, int projectId)
         {
             if(reportId <=0 && projectId <= 0)
             {
-                throw new ArgumentException();
+                return new ResponseObject
+                {
+                    status = "failed",
+                    message = "Param is not null"
+                };
             }
             var entity = await _service.GetByProjectAndReport(reportId, projectId);
             return new ResponseObject
@@ -92,6 +105,17 @@ namespace Api.Controllers
                 status = "success"
             };
 
+        }
+
+        [HttpGet("search")]
+        public async Task<ResponseObject> Search([FromQuery]SubmitParameter param)
+        {
+            var entities = await _service.Search(param);
+            return new ResponseObject
+            {
+                data = entities,
+                status = "success"
+            };
         }
     }
 }

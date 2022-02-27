@@ -1,6 +1,6 @@
 ﻿namespace Api.Global
 {
-    public class ResponseData<T>
+    public class PagingData<T>
     {
         public int PageIndex { get; set; }
         public int TotalCount { get; set; }

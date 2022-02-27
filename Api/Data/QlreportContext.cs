@@ -95,11 +95,11 @@ namespace Api.Data
 
             modelBuilder.Entity<Submit>(entity =>
             {
-                entity.HasOne(d => d.Project)
+                entity.HasOne(d => d.Group)
                     .WithMany(p => p.Submits)
-                    .HasForeignKey(d => d.ProjectId)
+                    .HasForeignKey(d => d.GroupId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Submit_Project");
+                    .HasConstraintName("FK_Submit_Group");
 
                 entity.HasOne(d => d.Report)
                     .WithMany(p => p.Submits)

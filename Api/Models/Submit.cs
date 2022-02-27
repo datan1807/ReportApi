@@ -19,16 +19,16 @@ namespace Api.Models
         [Key]
         public int Id { get; set; }
         public int ReportId { get; set; }
-        public int ProjectId { get; set; }
+        public int GroupId { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime SubmitTime { get; set; }
         [Required]
         [StringLength(250)]
         public string ReportUrl { get; set; }
 
-        [ForeignKey(nameof(ProjectId))]
+        [ForeignKey(nameof(GroupId))]
         [InverseProperty("Submits")]
-        public virtual Project Project { get; set; }
+        public virtual Group Group { get; set; }
         [ForeignKey(nameof(ReportId))]
         [InverseProperty("Submits")]
         public virtual Report Report { get; set; }
