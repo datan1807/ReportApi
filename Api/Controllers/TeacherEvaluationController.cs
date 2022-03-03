@@ -10,6 +10,7 @@ using Api.Data;
 using Api.Models;
 using Api.Services.IService;
 using Api.Dtos;
+using Api.Global;
 
 namespace Api.Controllers
 {
@@ -25,10 +26,10 @@ namespace Api.Controllers
         }
 
         // GET: api/TeacherEvaluation
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<TeacherEvaluationDto>>> GetTeacherEvaluations()
+        [HttpGet("search")]
+        public async Task<ResponseObject> GetTeacherEvaluations()
         {
-            return Ok(await _service.GetAll());
+            return new ResponseObject { status = "success" };
         }
 
         // GET: api/TeacherEvaluation/5
@@ -67,6 +68,12 @@ namespace Api.Controllers
         {
             await _service.Insert(teacherEvaluation);
             return NoContent();
+        }
+
+        [HttpGet("get-by-project")]
+        public async Task<ResponseObject> GetByProject(int projectId)
+        {
+            return new ResponseObject { status = "success" };
         }
     }
 }

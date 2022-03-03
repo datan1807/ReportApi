@@ -10,6 +10,7 @@ using Api.Data;
 using Api.Models;
 using Api.Services.IService;
 using Api.Dtos;
+using Api.Global;
 
 namespace Api.Controllers
 {
@@ -26,34 +27,44 @@ namespace Api.Controllers
 
         // GET: api/Reports
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ReportDto>>> GetReports()
+        public async Task<ResponseObject> GetReports()
         {
             var enties = await _service.GetAll();
-            return Ok(enties);
+            return new ResponseObject
+            {
+                status = "success",
+                data = enties
+            };
         }
 
         // GET: api/Reports/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ReportDto>> GetReport(int id)
+        public async Task<ResponseObject> GetReport(int id)
         {
             var report = await _service.GetById(id);
 
             if (report == null)
             {
-                return NotFound();
+                return new ResponseObject { status = "failed",
+                message = "Report is not found"};
             }
 
-            return report;
+            return new ResponseObject { status="success",
+            data = report};
         }
 
         // PUT: api/Reports/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutReport(int id, ReportDto report)
+        public async Task<ResponseObject> PutReport(int id, ReportDto report)
         {
             if (id != report.Id)
             {
-                return BadRequest();
+                return new ResponseObject
+                {
+                    status = "failed",
+                    message = "report id is not found"
+                };
             }
 
 
@@ -61,50 +72,72 @@ namespace Api.Controllers
             try
             {
                 await _service.Update(report);
+                return new ResponseObject { status = "success" };
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ReportExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return new ResponseObject { status = "failed" };
             }
 
-            return NoContent();
+            return new ResponseObject { status = "failed" };
         }
 
         // POST: api/Reports
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<ReportDto>> PostReport(ReportDto report)
+        public async Task<ResponseObject> Insert(ReportDto report)
         {
 
             try
             {
                 await _service.Insert(report);
+                return new ResponseObject
+                {
+                    status = "success"
+                };
             }
             catch (DbUpdateException)
             {
-                if (ReportExists(report.Id))
+                return new ResponseObject
                 {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
+                    status = "failed"
+                };
             }
 
-            return CreatedAtAction("GetReport", new { id = report.Id }, report);
         }
 
-        private bool ReportExists(int id)
+        [HttpPut("delete/{reportId}")]
+        public async Task<ResponseObject> DeleteReport(int reportId)
         {
-            return _service.GetById(id) != null;
+            if(reportId > 0)
+            {
+                try
+                {
+                    await _service.DeleteReport(reportId);
+                    return new ResponseObject {status = "success" };
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    return new ResponseObject { status = "failed" };
+                }
+            }
+            else
+            {
+                return new ResponseObject { status = "failed" };
+            }
+           
+
+        }
+
+        [HttpGet("get")]
+        public async Task<ResponseObject> GetReport()
+        {
+            var entities = await _service.GetReport("Active");
+            return new ResponseObject
+            {
+                data = entities,
+                status = "success"
+            };
         }
     }
 }

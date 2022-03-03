@@ -25,6 +25,17 @@ namespace Api.Services
             await _unitOfWork.ReportRepository.DeleteById(_mapper.Map<Report>(entity));
         }
 
+        public async Task DeleteReport(int id)
+        {
+            var entity = await _unitOfWork.ReportRepository.GetById(id);
+            if(entity != null)
+            {
+                entity.Status = "Inactive";
+                await _unitOfWork.ReportRepository.Update(entity);
+                await _unitOfWork.CompleteAsync();
+            }
+        }
+
         public async Task<IEnumerable<ReportDto>> GetAll()
         {
             var entity = await _unitOfWork.ReportRepository.GetAll();
@@ -35,6 +46,12 @@ namespace Api.Services
         {
             var entity = await _unitOfWork.ReportRepository.GetById(id);
             return _mapper.Map<ReportDto>(entity);
+        }
+
+        public async Task<IEnumerable<ReportDto>> GetReport(string status)
+        {
+            var entities = await _unitOfWork.ReportRepository.Get(c => c.Status == status);
+            return _mapper.Map <IEnumerable < ReportDto >> (entities).ToList();
         }
 
         public async Task Insert(ReportDto entity)
