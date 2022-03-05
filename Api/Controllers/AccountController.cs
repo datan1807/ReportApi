@@ -48,7 +48,7 @@ namespace Api.Controllers
 
         // GET: api/Accounts/5
         [HttpGet("{id}")]
-        public async Task<ResponseObject> GetAccount(string id)
+        public async Task<ResponseObject> GetAccount(int id)
         {
             var account = await _service.GetById(id);
 
@@ -63,9 +63,9 @@ namespace Api.Controllers
         // PUT: api/Accounts/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<ResponseObject> PutAccount(string id, AccountDto account)
+        public async Task<ResponseObject> PutAccount(string email, AccountDto account)
         {
-            if (id != account.Email)
+            if (email != account.Email)
             {
                 return new ResponseObject
                 {
@@ -74,16 +74,13 @@ namespace Api.Controllers
                     message = "Account is not found"
                 };
             }
-
-
-
             try
             {
                 await _service.Update(account);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AccountExists(id))
+                if (!AccountExists(email))
                 {
                     return new ResponseObject
                     {
@@ -119,9 +116,9 @@ namespace Api.Controllers
 
        
 
-        private bool AccountExists(string id)
+        private bool AccountExists(string email)
         {
-            return _service.GetById(id) != null;
+            return _service.GetById(email) != null;
         }
        
         [HttpGet("search")]

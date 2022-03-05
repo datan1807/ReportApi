@@ -4,6 +4,6 @@
     {
         public int Id { get; set; }
         public int GroupId { get; set; }
-        public string AccountId { get; set; }
+        public int AccountId { get; set; }
     }
 }

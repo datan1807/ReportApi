@@ -23,6 +23,8 @@ namespace Api.Data
         public virtual DbSet<AccountGroup> AccountGroups { get; set; }
         public virtual DbSet<CouncilEvaluation> CouncilEvaluations { get; set; }
         public virtual DbSet<Group> Groups { get; set; }
+        public virtual DbSet<Mark> Marks { get; set; }
+        public virtual DbSet<MarkCategory> MarkCategories { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<Report> Reports { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
@@ -33,9 +35,9 @@ namespace Api.Data
         {
             modelBuilder.Entity<Account>(entity =>
             {
-                entity.Property(e => e.Phone).IsFixedLength();
+                entity.Property(e => e.AccountCode).IsFixedLength();
 
-                entity.Property(e => e.Status).IsFixedLength();
+                entity.Property(e => e.Phone).IsFixedLength();
 
                 entity.HasOne(d => d.Role)
                     .WithMany(p => p.Accounts)
@@ -61,8 +63,6 @@ namespace Api.Data
 
             modelBuilder.Entity<CouncilEvaluation>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
                 entity.HasOne(d => d.Group)
                     .WithMany(p => p.CouncilEvaluations)
                     .HasForeignKey(d => d.GroupId)
@@ -81,16 +81,21 @@ namespace Api.Data
                     .HasConstraintName("FK_Group_Project");
             });
 
-            modelBuilder.Entity<Project>(entity =>
+            modelBuilder.Entity<Mark>(entity =>
             {
-                entity.Property(e => e.Status).IsFixedLength();
-            });
+                entity.Property(e => e.Point).HasDefaultValueSql("((0))");
 
-            modelBuilder.Entity<Report>(entity =>
-            {
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.HasOne(d => d.Account)
+                    .WithMany(p => p.Marks)
+                    .HasForeignKey(d => d.AccountId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Mark_Account");
 
-                entity.Property(e => e.Status).IsFixedLength();
+                entity.HasOne(d => d.Category)
+                    .WithMany(p => p.Marks)
+                    .HasForeignKey(d => d.CategoryId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Mark_MarkCategory");
             });
 
             modelBuilder.Entity<Submit>(entity =>
@@ -110,8 +115,6 @@ namespace Api.Data
 
             modelBuilder.Entity<TeacherEvaluation>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
                 entity.HasOne(d => d.Submit)
                     .WithMany(p => p.TeacherEvaluations)
                     .HasForeignKey(d => d.SubmitId)

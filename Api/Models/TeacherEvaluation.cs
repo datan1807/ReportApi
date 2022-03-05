@@ -14,9 +14,7 @@ namespace Api.Models
         [Key]
         public int Id { get; set; }
         public int SubmitId { get; set; }
-        [Required]
-        [StringLength(50)]
-        public string TeacherId { get; set; }
+        public int TeacherId { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime CreateDate { get; set; }
         public double Point { get; set; }

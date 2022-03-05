@@ -8,19 +8,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Api.Models
 {
-    [Table("Account_Group")]
-    public partial class AccountGroup
+    [Table("Mark")]
+    public partial class Mark
     {
-        public int AccountId { get; set; }
-        public int GroupId { get; set; }
         [Key]
         public int Id { get; set; }
+        public double? Point { get; set; }
+        public int CategoryId { get; set; }
+        public int AccountId { get; set; }
 
         [ForeignKey(nameof(AccountId))]
-        [InverseProperty("AccountGroups")]
+        [InverseProperty("Marks")]
         public virtual Account Account { get; set; }
-        [ForeignKey(nameof(GroupId))]
-        [InverseProperty("AccountGroups")]
-        public virtual Group Group { get; set; }
+        [ForeignKey(nameof(CategoryId))]
+        [InverseProperty(nameof(MarkCategory.Marks))]
+        public virtual MarkCategory Category { get; set; }
     }
 }
