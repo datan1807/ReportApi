@@ -2,6 +2,8 @@
 {
     public class ExtendedAccountGroup : AccountGroup
     {
-        public Account Account { get; set; }
+        public string? Email { get; set; }
+        public string? ProjectName { get; set; }
+        public string? Fullname { get; set; }
     }
 }

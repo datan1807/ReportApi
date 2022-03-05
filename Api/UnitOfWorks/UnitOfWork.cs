@@ -15,8 +15,9 @@ namespace Api.UnitOfWorks
         public CouncilEvaluationRepository CouncilEvaluationRepository { get; private set; }
         public SubmitRepository SubmitRepository { get; private set; }
         public TeacherEvaluationRepository TeacherEvaluationRepository { get; private set; }
-
         public AccountGroupRepository AccountGroupRepository { get; private set; }
+        public MarkCategoryRepository MarkCategoryRepository { get; private set; }
+        public MarkRepository MarkRepository { get; private set; }
 
         public UnitOfWork(QlreportContext context)
         {
@@ -35,6 +36,8 @@ namespace Api.UnitOfWorks
             SubmitRepository = new SubmitRepository(_context);
             TeacherEvaluationRepository = new TeacherEvaluationRepository(_context);
             AccountGroupRepository = new AccountGroupRepository(_context);
+            MarkRepository = new MarkRepository(_context);
+            MarkCategoryRepository = new MarkCategoryRepository(_context);
 
         }
 

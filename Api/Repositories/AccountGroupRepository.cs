@@ -31,10 +31,11 @@ namespace Api.Repositories
         {
             var entities =await _context.AccountGroups.Where(c => c.GroupId == id).Select(e => new ExtendedAccountGroup
             {
-                Account = e.Account,
                 GroupId = e.GroupId,
                 Id = e.Id,
-                AccountId = e.AccountId
+                AccountId = e.AccountId,
+                Email= e.Account.Email,
+                ProjectName = e.Group.Project.Name
             }).ToListAsync();
            return entities;
         }

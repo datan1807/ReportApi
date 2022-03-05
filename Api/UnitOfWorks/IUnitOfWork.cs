@@ -13,6 +13,8 @@ namespace Api.UnitOfWorks
         SubmitRepository SubmitRepository { get; }
         TeacherEvaluationRepository TeacherEvaluationRepository { get; }
         AccountGroupRepository AccountGroupRepository { get; }
+        MarkRepository MarkRepository { get; }
+        MarkCategoryRepository MarkCategoryRepository { get; }
         Task CompleteAsync();
     }
 }

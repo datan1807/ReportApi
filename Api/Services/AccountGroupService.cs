@@ -28,10 +28,12 @@ namespace Api.Services
             var entities = await _unitOfWork.AccountGroupRepository.FindByGroupId(id);
             return entities.Select(c => new ExtendedAccountGroupDto
             {
-                Account = _mapper.Map<AccountDto>(c.Account),
                 GroupId = c.GroupId,
                 Id = c.Id,
-                AccountId = c.AccountId
+                AccountId = c.AccountId,
+                Email = c.Email,
+                Fullname = c.Fullname,
+                ProjectName =c.ProjectName
             }).ToList();
         }
 

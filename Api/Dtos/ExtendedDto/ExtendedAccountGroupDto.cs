@@ -2,6 +2,8 @@
 {
     public class ExtendedAccountGroupDto : AccountGroupDto
     {
-        public AccountDto Account { get; set; } = new AccountDto();
+        public string? Email { get; set; }
+        public string? ProjectName { get; set; }
+        public string? Fullname { get; set; }
     }
 }
