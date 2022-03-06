@@ -1,4 +1,5 @@
-﻿using Api.Models;
+﻿using Api.Dtos.ExtendedDto;
+using Api.Models;
 using Api.Models.ExtendedModels;
 
 namespace Api.Repositories.IRepositories
@@ -7,5 +8,6 @@ namespace Api.Repositories.IRepositories
     {
         Task<IEnumerable<ExtendedAccountGroup>> FindByGroupId(int id);
         Task<IEnumerable<Group>> FindByAccount(string email);
+        Task<bool> CheckExist(ExtendedAccountGroupDto dto);
     }
 }

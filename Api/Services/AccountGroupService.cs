@@ -1,5 +1,6 @@
 ﻿using Api.Dtos;
 using Api.Dtos.ExtendedDto;
+using Api.Global;
 using Api.Models;
 using Api.Services.IService;
 using Api.UnitOfWorks;
@@ -16,6 +17,12 @@ namespace Api.Services
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+        }
+
+        public async Task<bool> CheckStudentExist(ExtendedAccountGroupDto dto)
+        {
+            return await _unitOfWork.AccountGroupRepository.CheckExist(dto);
+            
         }
 
         public Task Delete(AccountGroupDto entity)

@@ -6,6 +6,6 @@ namespace Api.Services.IService
     public interface IAccountGroupService :IGenericService<AccountGroupDto>
     {
         Task<IEnumerable<ExtendedAccountGroupDto>> FindByGroupId(int id);
-        
+        Task<bool> CheckStudentExist(ExtendedAccountGroupDto dto);
     }
 }

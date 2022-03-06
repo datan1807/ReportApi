@@ -11,6 +11,7 @@ using Api.Models;
 using Api.Services.IService;
 using Api.Dtos;
 using Api.Dtos.ExtendedDto;
+using Api.Global;
 
 namespace Api.Controllers
 {
@@ -74,10 +75,27 @@ namespace Api.Controllers
         // POST: api/AccountGroup
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult> PostAccountGroup(AccountGroupDto accountGroup)
+        public async Task<ResponseObject> PostAccountGroup(ExtendedAccountGroupDto dto)
         {
-            await _service.Insert(accountGroup);
-            return NoContent();
+            bool exist = await _service.CheckStudentExist(dto);
+            if (exist)
+            {
+                return new ResponseObject
+                {
+                    status = "error",
+                    message = "Student is register group in this semester"
+                };
+            }
+            AccountGroupDto accountGroupDto = new AccountGroupDto
+            {
+                AccountId = dto.AccountId,
+                GroupId = dto.GroupId
+            };
+            await _service.Insert(accountGroupDto);
+            return new ResponseObject
+            {
+                status = "success"
+            };
         }
         [HttpGet("find-by-group-id")]
         public async Task<ActionResult<IEnumerable<ExtendedAccountGroupDto>>> GetByGroupId([FromQuery] int groupId)

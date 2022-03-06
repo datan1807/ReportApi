@@ -1,4 +1,6 @@
 ﻿using Api.Data;
+using Api.Dtos.ExtendedDto;
+using Api.Global;
 using Api.Models;
 using Api.Models.ExtendedModels;
 using Api.Repositories.IRepositories;
@@ -13,6 +15,18 @@ namespace Api.Repositories
         public AccountGroupRepository(QlreportContext context) : base(context)
         {
             _context = context;
+        }
+
+        public async Task<bool> CheckExist(ExtendedAccountGroupDto dto)
+        {
+            var entity = await _context.AccountGroups.Where(a =>
+            a.Account.Id == dto.AccountId && a.Account.RoleId == Constants.Role.STUDENT
+            && a.Group.Year == dto.Year && a.Group.Semester == dto.Semester).FirstOrDefaultAsync();
+            if (entity == null)
+            {
+                return false;
+            }
+            return true;
         }
 
         public async Task<IEnumerable<Group>> FindByAccount(string email)
