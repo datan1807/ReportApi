@@ -38,6 +38,7 @@ namespace Api.Services
 
         public async Task Insert(ProjectDto entity)
         {
+            entity.Status = "Active";
             var dto = _mapper.Map<Project>(entity);
             await _unitOfWork.ProjectRepository.Insert(dto);
             await _unitOfWork.CompleteAsync();
