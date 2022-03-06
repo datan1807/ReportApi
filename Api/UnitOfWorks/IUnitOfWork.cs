@@ -14,7 +14,6 @@ namespace Api.UnitOfWorks
         TeacherEvaluationRepository TeacherEvaluationRepository { get; }
         AccountGroupRepository AccountGroupRepository { get; }
         MarkRepository MarkRepository { get; }
-        MarkCategoryRepository MarkCategoryRepository { get; }
         Task CompleteAsync();
     }
 }

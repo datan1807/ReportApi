@@ -34,10 +34,6 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[MarkCategory]",
-         "ObjectType": 0
-      },
-      {
          "Name": "[dbo].[Project]",
          "ObjectType": 0
       },

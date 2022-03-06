@@ -13,15 +13,19 @@ namespace Api.Models
     {
         [Key]
         public int Id { get; set; }
-        public double? Point { get; set; }
-        public int CategoryId { get; set; }
+        public double? Report1 { get; set; }
+        public double? Report2 { get; set; }
+        public double? Report3 { get; set; }
+        public double? Report4 { get; set; }
+        public double? Report5 { get; set; }
+        public double? Report6 { get; set; }
+        public double? Final { get; set; }
         public int AccountId { get; set; }
+        [StringLength(50)]
+        public string Status { get; set; }
 
         [ForeignKey(nameof(AccountId))]
         [InverseProperty("Marks")]
         public virtual Account Account { get; set; }
-        [ForeignKey(nameof(CategoryId))]
-        [InverseProperty(nameof(MarkCategory.Marks))]
-        public virtual MarkCategory Category { get; set; }
     }
 }

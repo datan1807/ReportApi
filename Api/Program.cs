@@ -22,7 +22,6 @@ builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<ISubmitService, SubmitService>();
 builder.Services.AddScoped<ITeacherEvaluationService, TeacherEvaluationService>();
 builder.Services.AddScoped<IAccountGroupService, AccountGroupService>();
-builder.Services.AddScoped<IMarkCategoryService, MarkCategoryService>();
 builder.Services.AddScoped<IMarkService, MarkService>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddControllers();

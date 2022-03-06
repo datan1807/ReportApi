@@ -56,8 +56,6 @@ namespace Api.Services
                 Items = entities.Select(x => new ExtendedMarkDto
                 {
                     AccountCode = x.AccountCode,
-                    Category = x.Category,
-                    CategoryId = x.CategoryId,
                     Email = x.Email,
                     Fullname = x.Fullname,
                     ProjectId = x.ProjectId,
