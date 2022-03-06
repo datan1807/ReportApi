@@ -22,7 +22,7 @@ namespace Api.Repositories
             {
                 ReportId = c.ReportId,
                 Id = c.Id,
-                ProjectName = c.Group.Project.Name,
+                ProjectName = c.Group.Project.ProjectName,
                 ReportName = c.Report.Title,
                 ReportUrl = c.ReportUrl,
                 SubmitTime = c.SubmitTime
@@ -41,7 +41,7 @@ namespace Api.Repositories
                 Group = s.Group,
                 ReportId = s.ReportId,
                 ProjectId = s.Group.ProjectId,
-                ProjectName= s.Group.Project.Name,
+                ProjectName= s.Group.Project.ProjectName,
                 ReportName = s.Report.Title,
                 ReportUrl= s.ReportUrl,
                 SubmitTime= s.SubmitTime
@@ -52,7 +52,7 @@ namespace Api.Repositories
             }
             if(!String.IsNullOrEmpty(param.ProjectName))
             {
-                entities = entities.Where(e => e.Group.Project.Name.Contains(param.ProjectName)).ToList();
+                entities = entities.Where(e => e.Group.Project.ProjectName.Contains(param.ProjectName)).ToList();
             }
             if(param.ReportId > 0)
             {

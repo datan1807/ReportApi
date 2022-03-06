@@ -62,7 +62,7 @@ namespace Api.Repositories
                 Email = m.Account.Email,
                 Fullname = m.Account.Fullname,
                 ProjectId = g.Group.ProjectId,
-                ProjectName =g.Group.Project.Name,
+                ProjectName =g.Group.Project.ProjectName,
                 Semeter = g.Group.Semester,
                 Year = g.Group.Year,
                 }).OrderByDescending(o => o.Year)

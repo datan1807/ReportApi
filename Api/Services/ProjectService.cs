@@ -1,5 +1,7 @@
 ﻿using Api.Dtos;
+using Api.Global;
 using Api.Models;
+using Api.Parameters;
 using Api.Services.IService;
 using Api.UnitOfWorks;
 using AutoMapper;
@@ -39,6 +41,27 @@ namespace Api.Services
             var dto = _mapper.Map<Project>(entity);
             await _unitOfWork.ProjectRepository.Insert(dto);
             await _unitOfWork.CompleteAsync();
+        }
+
+        public async Task<PagingData<ProjectDto>> Search(ProjectParameter param)
+        {
+            var entities = await _unitOfWork.ProjectRepository.Search(param);
+            return new PagingData<ProjectDto>
+            {
+                HasNext = entities.HasNext,
+                HasPrevious = entities.HasPrevious,
+                PageIndex = entities.PageIndex,
+                PageSize = entities.PageSize,
+                TotalCount = entities.TotalCount,
+                TotalPages = entities.TotalPages,
+                Items = entities.Select(x => new ProjectDto
+                {
+                    Id = x.Id,
+                    ProjectName = x.ProjectName,
+                    Description = x.Description,
+                    Status = x.Status
+                }).ToList()
+            };
         }
 
         public async Task Update(ProjectDto entity)

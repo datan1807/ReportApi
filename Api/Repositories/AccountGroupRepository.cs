@@ -49,7 +49,7 @@ namespace Api.Repositories
                 Id = e.Id,
                 AccountId = e.AccountId,
                 Email= e.Account.Email,
-                ProjectName = e.Group.Project.Name
+                ProjectName = e.Group.Project.ProjectName
             }).ToListAsync();
            return entities;
         }

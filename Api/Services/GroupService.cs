@@ -41,7 +41,7 @@ namespace Api.Services
             {
                 Id = x.Id,
                 ProjectId = x.ProjectId,
-                ProjectName = x.Project.Name,
+                ProjectName = x.Project.ProjectName,
                 Semester = x.Semester,
                 Year = x.Year
             });
