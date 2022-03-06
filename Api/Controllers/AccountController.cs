@@ -36,14 +36,22 @@ namespace Api.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult> Login([FromBody] AccountDto dto)
+        public async Task<ResponseObject> Login([FromBody] AccountDto dto)
         {
-            var result = await _service.CheckLogin(dto.Email, dto.Password);
+            var result = await _service.GetByEmail(dto.Email);
             if(result == null)
             {
-                return Ok("failed");
+                return new ResponseObject
+                {
+                    status = "error",
+                    message = "Account is not found"
+                };
             }
-            return Ok(result);
+            return new ResponseObject
+            {
+                status = "success",
+                data = result
+            };
         }
 
         // GET: api/Accounts/5
