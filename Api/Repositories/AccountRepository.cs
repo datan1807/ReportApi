@@ -47,7 +47,9 @@ namespace Api.Repositories
                 Phone = c.Phone,
                 RoleId=c.RoleId,
                 RoleName=c.Role.Name,
-                Status = c.Status
+                Status = c.Status,
+                AccountCode = c.AccountCode,
+                Id = c.Id
             }).FirstOrDefaultAsync();
             return entity;
         }

@@ -72,7 +72,9 @@ namespace Api.Services
                     Phone = entity.Phone,
                     RoleId = entity.RoleId,
                     RoleName = entity.RoleName,
-                    Status = entity.Status
+                    Status = entity.Status,
+                    Id = entity.Id,
+                    AccountCode = entity.AccountCode
                 };
             }
         }
