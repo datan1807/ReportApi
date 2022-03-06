@@ -10,6 +10,7 @@ using Api.Data;
 using Api.Models;
 using Api.Services.IService;
 using Api.Global;
+using Api.Dtos;
 
 namespace Api.Controllers
 {
@@ -25,9 +26,9 @@ namespace Api.Controllers
         }
 
         [HttpPost("/login")]
-        public async Task<ResponseObject> Login([FromBody]string email)
+        public async Task<ResponseObject> Login([FromBody] AccountDto dto)
         {
-            var entity =await _service.GetByEmail(email);
+            var entity =await _service.GetByEmail(dto.Email);
             if(entity == null)
             {
                 return new ResponseObject
