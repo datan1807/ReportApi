@@ -8,6 +8,6 @@ namespace Api.Repositories.IRepositories
     public interface IMarkRepository : IGenericRepository<Mark>
     {
         Task<PagedList<ExtendedMark>> Search(MarkParameter param);
-        Task<IEnumerable<ExtendedMark>> GetByGroup(int groupId, int role);
+        Task<IEnumerable<ExtendedMark>> GetByGroup(int groupId);
     }
 }

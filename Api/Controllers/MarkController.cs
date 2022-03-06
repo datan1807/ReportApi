@@ -102,5 +102,16 @@ namespace Api.Controllers
                 
             }
         }
+
+        [HttpGet("get-by-group")]
+        public async Task<ResponseObject> GetByGroup(int groupId)
+        {
+            var entities = await _service.GetByGroup(groupId);
+            return new ResponseObject
+            {
+                data = entities,
+                status = "success"
+            };
+        }
     }
 }

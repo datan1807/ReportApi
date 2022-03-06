@@ -1,6 +1,6 @@
 ﻿namespace Api.Models.ExtendedModels
 {
-    public class ExtendedMark
+    public class ExtendedMark :Mark
     {
         public string? Fullname { get; set; }
         public string? AccountCode { get; set; }

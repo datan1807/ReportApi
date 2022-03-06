@@ -29,6 +29,30 @@ namespace Api.Services
             throw new NotImplementedException();
         }
 
+        public async Task<IEnumerable<ExtendedMarkDto>> GetByGroup(int groupId)
+        {
+            var entities = await _unitOfWork.MarkRepository.GetByGroup(groupId);
+            var result = entities.Select(x => new ExtendedMarkDto
+            {
+                Id = x.Id,
+                AccountCode = x.AccountCode,
+                AccountId = x.AccountId,
+                Email = x.Email,
+                Fullname = x.Fullname,
+                Report1 = x.Report1,
+                Report2 = x.Report2,
+                Report3 = x.Report3,
+                Report4 = x.Report4,
+                Report5 = x.Report5,
+                Report6 = x.Report6,
+                Final = x.Final,
+                Semeter = x.Semeter,
+                Year = x.Year,
+                Status = x.Status
+            }).ToList();
+            return result;
+        }
+
         public async Task<MarkDto> GetById(object id)
         {
             var entity = await _unitOfWork.MarkRepository.GetById(id);

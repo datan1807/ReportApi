@@ -17,20 +17,38 @@ namespace Api.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<ExtendedMark>> GetByGroup(int groupId, int role)
+        public async Task<IEnumerable<ExtendedMark>> GetByGroup(int groupId)
         {
-            var entities = await _context.Marks.Where(m => m.Account.RoleId == role).Join(
-                _context.AccountGroups,
+            var entities = await _context.AccountGroups.Where(a => a.GroupId == groupId).Join(
+                _context.Marks,
+                a => a.AccountId,
                 m => m.AccountId,
-                g => g.AccountId,
-                (m,g) => new ExtendedMark
-                {
-                    AccountCode = m.Account.AccountCode,
-                    Fullname = m.Account.Fullname,
-                    Email = m.Account.Email,
-                    
+                (a,m) => new ExtendedMark {
+                    Id = m.Id,
+                    AccountCode = a.Account.AccountCode,
+                    Email = a.Account.Email,
+                    Fullname = a.Account.Fullname,
+                    Report1 = m.Report1,
+                    Report2 = m.Report2,
+                    Report3 = m.Report3,
+                    Report4 = m.Report4,
+                    Report5 = m.Report5,
+                    Report6 = m.Report6,
+                    Final = m.Final             
                 }).ToListAsync();
-            return null;
+            return entities;
+            //var entities = await _context.Marks.Where(m => m.Account.RoleId == role).Join(
+            //    _context.AccountGroups,
+            //    m => m.AccountId,
+            //    g => g.AccountId,
+            //    (m,g) => new ExtendedMark
+            //    {
+            //        AccountCode = m.Account.AccountCode,
+            //        Fullname = m.Account.Fullname,
+            //        Email = m.Account.Email,
+                    
+            //    }).ToListAsync();
+            //return null;
         }
 
         public async Task<PagedList<ExtendedMark>> Search(MarkParameter param)
