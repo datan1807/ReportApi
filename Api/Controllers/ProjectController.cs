@@ -125,13 +125,21 @@ namespace Api.Controllers
         [HttpPut("inactive/{id}")]
         public async Task<ResponseObject> UpdateStatus(int id)
         {
-            var enities = await _service.GetById(id);
-            enities.Status = "Inactive";
-            await _service.Update(enities);
-            return new ResponseObject
+            try
             {
-                status = "success"
-            };
+                await _service.Inactive(id);
+                return new ResponseObject
+                {
+                    status = "success"
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ResponseObject
+                {
+                    status = "error"
+                };
+            }
         }
     }
 }

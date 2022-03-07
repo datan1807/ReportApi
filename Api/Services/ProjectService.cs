@@ -36,6 +36,14 @@ namespace Api.Services
             return _mapper.Map<ProjectDto>(entity);
         }
 
+        public async Task Inactive(int id)
+        {
+            var entity = await _unitOfWork.ProjectRepository.GetById(id);
+            entity.Status = "Inactive";
+            await _unitOfWork.ProjectRepository.Update(entity);
+            await _unitOfWork.CompleteAsync();
+        }
+
         public async Task Insert(ProjectDto entity)
         {
             entity.Status = "Active";

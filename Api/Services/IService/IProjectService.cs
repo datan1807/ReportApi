@@ -7,5 +7,6 @@ namespace Api.Services.IService
     public interface IProjectService:IGenericService<ProjectDto>
     {
         Task<PagingData<ProjectDto>> Search(ProjectParameter param);
+        Task Inactive(int id);
     }
 }
