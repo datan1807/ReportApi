@@ -162,11 +162,6 @@ namespace Api.Controllers
         [HttpDelete("delete")]
         public async Task<ResponseObject> Delete(string email)
         {
-            if (email == null)
-            {
-                throw new ArgumentNullException("email");
-            }
-
             var result = await _service.UpdateStatus(email);
             if (result)
             {
