@@ -85,6 +85,32 @@ namespace Api.Services
             return _mapper.Map<AccountDto>(entity);
         }
 
+        //public async Task<AuthResponse> GetToken(AuthRequest request)
+        //{
+        //    AuthResponse response = new AuthResponse();
+        //    ExtendedAccountDto dto =  await GetByEmail(request.Email);
+        //    if(dto == null)
+        //    {
+        //        await Task.FromResult<AuthResponse>(null);
+        //    }
+        //    var jwtKey = _configuration.GetValue<string>("JwtSetting:Key");
+        //    var keyBytes = Encoding.ASCII.GetBytes(jwtKey);
+        //    var tokenHandle = new JwtSecurityTokenHandler();
+        //    var description = new SecurityTokenDescriptor()
+        //    {
+        //        Subject = new ClaimsIdentity(new Claim[] {
+        //            new Claim(ClaimTypes.NameIdentifier, dto.Email)
+        //            }),
+        //        Expires = DateTime.UtcNow.AddSeconds(60),
+        //        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(keyBytes),SecurityAlgorithms.HmacSha256)
+        //    };
+        //    var token = tokenHandle.CreateToken(description);
+            
+        //    response.Token = tokenHandle.WriteToken(token);
+        //    response.Account = dto;
+        //    return response;
+        //}
+
         public async Task Insert(AccountDto entity)
         {
             if(entity != null)
