@@ -50,7 +50,7 @@ namespace Api.Services
                 Status = x.Status,
                 ProjectId = x.ProjectId,
                 ProjectName = x.ProjectName,
-                Semester = x.Semeter,
+                Semester = x.Semester,
                 Year = x.Year
             }).ToList();
             return result;
@@ -88,7 +88,7 @@ namespace Api.Services
                     Fullname = x.Fullname,
                     ProjectId = x.ProjectId,
                     ProjectName = x.ProjectName,
-                    Semester = x.Semeter,
+                    Semester = x.Semester,
                     Year = x.Year,
                     AccountId = x.AccountId,
                     Report1 = x.Report1,

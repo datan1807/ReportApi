@@ -41,7 +41,7 @@ namespace Api.Repositories
                     AccountId = m.AccountId,
                     ProjectId = a.Group.ProjectId,
                     ProjectName = a.Group.Project.ProjectName,
-                    Semeter = a.Group.Semester,
+                    Semester = a.Group.Semester,
                     Year = a.Group.Year
                 }).ToListAsync();
             return entities;
@@ -73,7 +73,7 @@ namespace Api.Repositories
                     Fullname = m.Account.Fullname,
                     ProjectId = g.Group.ProjectId,
                     ProjectName = g.Group.Project.ProjectName,
-                    Semeter = g.Group.Semester,
+                    Semester = g.Group.Semester,
                     Year = g.Group.Year,
                     AccountId = m.AccountId,
                     Report1 = m.Report1,

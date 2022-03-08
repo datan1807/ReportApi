@@ -39,7 +39,7 @@ namespace Api.Controllers
         public async Task<ResponseObject> Login([FromBody] AccountDto dto)
         {
             var result = await _service.GetByEmail(dto.Email);
-            if(result == null)
+            if (result == null)
             {
                 return new ResponseObject
                 {
@@ -65,72 +65,70 @@ namespace Api.Controllers
                 return new ResponseObject { data = null, status = "failed", message = "Account is not found" };
             }
 
-            return new ResponseObject { data = account, status = "success", message = "Success"};
+            return new ResponseObject { data = account, status = "success", message = "Success" };
         }
 
         // PUT: api/Accounts/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<ResponseObject> PutAccount(string email, AccountDto account)
+        [HttpPut("update")]
+        public async Task<ResponseObject> PutAccount([FromBody] AccountDto account)
         {
-            if (email != account.Email)
-            {
-                return new ResponseObject
-                {
-                    status = "failed",
-                    data = "",
-                    message = "Account is not found"
-                };
-            }
             try
             {
                 await _service.Update(account);
+                return new ResponseObject
+                {
+                    status = "success",
+                    data = "",
+                    message = ""
+                };
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception ex)
             {
-                if (!AccountExists(email))
+                return new ResponseObject
                 {
-                    return new ResponseObject
-                    {
-                        status = "failed",
-                        data = "",
-                        message = "Account is not found"
-                    };
-                }
-                else
-                {
-                    throw;
-                }
+                    status = "error",
+                    data = "",
+                    message = "Account is not found"
+                };
+
             }
 
-            return new ResponseObject
-            {
-                status = "success",
-                data = "",
-                message = ""
-            };
+
         }
 
         // POST: api/Accounts
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<AccountDto>> PostAccount([FromBody]AccountDto account)
+        [HttpPost("add")]
+        public async Task<ResponseObject> PostAccount([FromBody] AccountDto account)
         {
-
+            try
+            {
                 await _service.Insert(account);
-            return NoContent();
-           
+                return new ResponseObject
+                {
+                    status = "success"
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ResponseObject
+                {
+                    status = "error"
+                };
+            }
+
         }
 
-       
 
-        private bool AccountExists(string email)
+
+        private bool AccountExists(int id)
         {
-            return _service.GetById(email) != null;
+            return _service.GetById(id) != null;
         }
-       
+
         [HttpGet("search")]
-        public async Task<ResponseObject> Search ([FromQuery]AccountParameter param)
+        public async Task<ResponseObject> Search([FromQuery] AccountParameter param)
         {
             var entities = await _service.Search(param);
             return new ResponseObject
@@ -140,11 +138,11 @@ namespace Api.Controllers
                 status = "success",
             };
         }
-        [HttpGet("detail/{email}")]
+        [HttpGet("detail")]
         public async Task<ResponseObject> GetDetail(string email)
         {
             var entity = await _service.GetByEmail(email);
-            if(entity == null)
+            if (entity == null)
             {
                 return new ResponseObject
                 {
@@ -161,23 +159,26 @@ namespace Api.Controllers
             };
         }
 
-        [HttpDelete("delete/{email}")]
+        [HttpDelete("delete")]
         public async Task<ResponseObject> Delete(string email)
         {
             if (email == null)
             {
                 throw new ArgumentNullException("email");
             }
-           
-                var result = await _service.UpdateStatus(email);
-                if (result)
+
+            var result = await _service.UpdateStatus(email);
+            if (result)
+            {
+                return new ResponseObject
                 {
-                    return new ResponseObject { data = result,
-                    status = "success"};
-                }
-           
-                return new ResponseObject { status = "failed" };
-            
+                    data = result,
+                    status = "success"
+                };
+            }
+
+            return new ResponseObject { status = "failed" };
+
         }
     }
 }

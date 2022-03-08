@@ -18,7 +18,7 @@ namespace Api.Controllers
             _service = service;
         }
         [HttpGet("search")]
-        public async Task<ResponseObject> Search([FromQuery]MarkParameter param)
+        public async Task<ResponseObject> Search([FromQuery] MarkParameter param)
         {
             var entities = await _service.Search(param);
             return new ResponseObject
@@ -53,13 +53,7 @@ namespace Api.Controllers
         [HttpPost("add")]
         public async Task<ResponseObject> Insert([FromBody] MarkDto dto)
         {
-            if (dto == null)
-            {
-                return new ResponseObject { status = "error",
-                    message = "Parameter is not null"
-                };
-            }
-            else
+            try
             {
                 await _service.Insert(dto);
                 return new ResponseObject
@@ -67,39 +61,33 @@ namespace Api.Controllers
                     status = "success"
                 };
             }
+            catch (Exception ex)
+            {
+                return new ResponseObject
+                {
+                    status = "error"
+                };
+            }
         }
 
         [HttpPut("update")]
         public async Task<ResponseObject> Update([FromBody] MarkDto dto)
         {
-            if (dto == null)
+            try
+            {
+                await _service.Update(dto);
+                return new ResponseObject
+                {
+                    status = "success"
+                };
+            }
+            catch (Exception ex)
             {
                 return new ResponseObject
                 {
                     status = "error",
-                    message = "Parameter is not null"
+                    message = ex.Message
                 };
-            }
-            else
-            {
-                var entity = await _service.GetById(dto.Id);
-                if (entity == null)
-                {
-                    return new ResponseObject
-                    {
-                        status = "error",
-                        message="Mark id is not found"
-                    };
-                }
-                else
-                {
-                    await _service.Update(dto);
-                    return new ResponseObject
-                    {
-                        status = "success"
-                    };
-                }
-                
             }
         }
 

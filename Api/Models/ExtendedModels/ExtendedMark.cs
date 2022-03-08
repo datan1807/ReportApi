@@ -7,7 +7,7 @@
         public string? ProjectName { get; set; }
         public string? Email { get; set; }
         public int? ProjectId { get; set; }
-        public string? Semeter { get; set; }
+        public string? Semester { get; set; }
         public int Year { get; set; }
     }
 }
