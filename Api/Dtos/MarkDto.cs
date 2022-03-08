@@ -10,6 +10,7 @@
         public double? Report4 { get; set; }
         public double? Report5 { get; set; }
         public double? Report6 { get; set; }
+        public double? Report7 { get; set; }
         public double? Final { get; set; }
         public string? Status { get; set; }
     }

@@ -23,7 +23,8 @@ namespace Api.Repositories
                 _context.Marks,
                 a => a.AccountId,
                 m => m.AccountId,
-                (a,m) => new ExtendedMark {
+                (a, m) => new ExtendedMark
+                {
                     Id = m.Id,
                     AccountCode = a.Account.AccountCode,
                     Email = a.Account.Email,
@@ -34,7 +35,14 @@ namespace Api.Repositories
                     Report4 = m.Report4,
                     Report5 = m.Report5,
                     Report6 = m.Report6,
-                    Final = m.Final             
+                    Report7 = m.Report7,
+                    Final = m.Final,
+                    Status = m.Status,
+                    AccountId = m.AccountId,
+                    ProjectId = a.Group.ProjectId,
+                    ProjectName = a.Group.Project.ProjectName,
+                    Semeter = a.Group.Semester,
+                    Year = a.Group.Year
                 }).ToListAsync();
             return entities;
             //var entities = await _context.Marks.Where(m => m.Account.RoleId == role).Join(
@@ -46,7 +54,7 @@ namespace Api.Repositories
             //        AccountCode = m.Account.AccountCode,
             //        Fullname = m.Account.Fullname,
             //        Email = m.Account.Email,
-                    
+
             //    }).ToListAsync();
             //return null;
         }
@@ -57,21 +65,33 @@ namespace Api.Repositories
                 _context.AccountGroups,
                 m => m.Account.Id,
                 g => g.AccountId,
-                (m,g) => new ExtendedMark { 
-                AccountCode = m.Account.AccountCode,
-                Email = m.Account.Email,
-                Fullname = m.Account.Fullname,
-                ProjectId = g.Group.ProjectId,
-                ProjectName =g.Group.Project.ProjectName,
-                Semeter = g.Group.Semester,
-                Year = g.Group.Year,
+                (m, g) => new ExtendedMark
+                {
+                    Id = m.Id,
+                    AccountCode = m.Account.AccountCode,
+                    Email = m.Account.Email,
+                    Fullname = m.Account.Fullname,
+                    ProjectId = g.Group.ProjectId,
+                    ProjectName = g.Group.Project.ProjectName,
+                    Semeter = g.Group.Semester,
+                    Year = g.Group.Year,
+                    AccountId = m.AccountId,
+                    Report1 = m.Report1,
+                    Report2 = m.Report2,
+                    Report3 = m.Report3,
+                    Report4 = m.Report4,
+                    Report5 = m.Report5,
+                    Report6 = m.Report6,
+                    Final = m.Final,
+                    Status = m.Status,
+                    Report7 = m.Report7
                 }).OrderByDescending(o => o.Year)
                 .ToListAsync();
-            if (String.IsNullOrEmpty(param.AccountCode))
+            if (!String.IsNullOrEmpty(param.AccountCode))
             {
                 entities = entities.Where(m => m.AccountCode == param.AccountCode).ToList();
             }
-            if(param.ProjectId > 0)
+            if (param.ProjectId > 0)
             {
                 entities = entities.Where(m => m.ProjectId == param.ProjectId).ToList();
             }

@@ -19,10 +19,11 @@ namespace Api.Models
         public double? Report4 { get; set; }
         public double? Report5 { get; set; }
         public double? Report6 { get; set; }
-        public double? Final { get; set; }
+        public double? Report7 { get; set; }
         public int AccountId { get; set; }
         [StringLength(50)]
         public string Status { get; set; }
+        public double? Final { get; set; }
 
         [ForeignKey(nameof(AccountId))]
         [InverseProperty("Marks")]

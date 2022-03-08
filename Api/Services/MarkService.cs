@@ -9,7 +9,7 @@ using AutoMapper;
 
 namespace Api.Services
 {
-    public class MarkService :IMarkService
+    public class MarkService : IMarkService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -45,10 +45,13 @@ namespace Api.Services
                 Report4 = x.Report4,
                 Report5 = x.Report5,
                 Report6 = x.Report6,
+                Report7 = x.Report7,
                 Final = x.Final,
-                Semeter = x.Semeter,
-                Year = x.Year,
-                Status = x.Status
+                Status = x.Status,
+                ProjectId = x.ProjectId,
+                ProjectName = x.ProjectName,
+                Semester = x.Semeter,
+                Year = x.Year
             }).ToList();
             return result;
         }
@@ -79,13 +82,24 @@ namespace Api.Services
                 TotalPages = entities.TotalPages,
                 Items = entities.Select(x => new ExtendedMarkDto
                 {
+                    Id = x.Id,
                     AccountCode = x.AccountCode,
                     Email = x.Email,
                     Fullname = x.Fullname,
                     ProjectId = x.ProjectId,
                     ProjectName = x.ProjectName,
-                    Semeter = x.Semeter,
-                    Year = x.Year
+                    Semester = x.Semeter,
+                    Year = x.Year,
+                    AccountId = x.AccountId,
+                    Report1 = x.Report1,
+                    Report2 = x.Report2,
+                    Report3 = x.Report3,
+                    Report4 = x.Report4,
+                    Report5 = x.Report5,
+                    Report6 = x.Report6,
+                    Report7 = x.Report7,
+                    Final = x.Final,
+                    Status = x.Status,
                 }).ToList()
             };
             return result;
