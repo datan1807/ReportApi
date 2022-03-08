@@ -30,30 +30,41 @@ namespace Api.Controllers
             _service = service;
             _configuration = configuration;
         }
-        [HttpPost("/auth")]
-        public async Task<IActionResult> AuthToken([FromBody] AuthRequest request)
+        [HttpPost("login")]
+        public async Task<ResponseObject> AuthToken([FromBody] AuthRequest request)
         {
+            ResponseObject response = new ResponseObject
+            {
+                status = "error"
+            };
+            AuthResponse auth = new AuthResponse();
             var entity = await _service.GetByEmail(request.Email);
             var token = string.Empty;
             if (entity != null)
             {
-               token = CreateToken(request.Email);
+                token = CreateToken(entity);
+                auth.Token = token;
+                auth.Account = entity;
+                response.status = "success";
+                response.data = auth;
             }
-            return Ok(token);
+            return response;
         }
 
-        private string CreateToken(string email)
+        private string CreateToken(ExtendedAccountDto dto)
         {
             List<Claim> claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, email)
+                new Claim("id", dto.Id.ToString()),
+                new Claim("email", dto.Email),
+                new Claim("role", dto.RoleName)
             };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("JwtSetting:Key").Value));
             var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
             var token = new JwtSecurityToken(
                 claims: claims,
                 signingCredentials: cred,
-                expires: DateTime.UtcNow.AddSeconds(60)      
+                expires: DateTime.UtcNow.AddSeconds(60)
                 );
             var jwt = new JwtSecurityTokenHandler().WriteToken(token);
             return jwt;
