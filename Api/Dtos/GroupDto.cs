@@ -6,6 +6,7 @@
         public string? Semester { get; set; }
         public int Year { get; set; }
         public int ProjectId { get; set; }
+        public string? GroupCode { get; set; }
        
     }
 }

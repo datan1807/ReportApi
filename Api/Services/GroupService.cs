@@ -1,6 +1,8 @@
 ﻿using Api.Dtos;
 using Api.Dtos.ExtendedDto;
+using Api.Global;
 using Api.Models;
+using Api.Parameters;
 using Api.Services.IService;
 using Api.UnitOfWorks;
 using AutoMapper;
@@ -52,6 +54,29 @@ namespace Api.Services
             var dto = _mapper.Map<Group>(entity);
             await _unitOfWork.GroupRepository.Insert(dto);
             await _unitOfWork.CompleteAsync();
+        }
+
+        public async Task<PagingData<ExtendedGroupDto>> Search(GroupParameter param)
+        {
+            var entities = await _unitOfWork.GroupRepository.Search(param);
+            return new PagingData<ExtendedGroupDto>
+            {
+                PageSize = entities.PageSize,
+                HasNext = entities.HasNext,
+                HasPrevious = entities.HasPrevious,
+                PageIndex = entities.PageIndex,
+                TotalCount = entities.TotalCount,
+                TotalPages = entities.TotalPages,
+                Items = entities.Select(x => new ExtendedGroupDto
+                {
+                    Id = x.Id,
+                    GroupCode = x.GroupCode,
+                    ProjectId = x.ProjectId,
+                    ProjectName = x.ProjectName,
+                    Semester = x.Semester,
+                    Year = x.Year
+                }).ToList()
+            };
         }
 
         public async Task Update(GroupDto entity)

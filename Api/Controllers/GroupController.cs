@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Api.Dtos;
 using Api.Dtos.ExtendedDto;
+using Api.Global;
+using Api.Parameters;
 using Api.Services.IService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -25,58 +27,85 @@ namespace Api.Controllers
 
         // GET: api/Group
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<GroupDto>>> GetGroups()
+        public async Task<ResponseObject> GetGroups()
         {
             var entities = await _service.GetAll();
-            return Ok(entities);
+            return new ResponseObject
+            {
+                status = "success",
+                data = entities
+            };
         }
 
         // GET: api/Group/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<GroupDto>> GetGroup(int id)
+        public async Task<ResponseObject> GetGroup(int id)
         {
             var @group = await _service.GetById(@id);
 
             if (@group == null)
             {
-                return NotFound();
+                return new ResponseObject { status = "error" };
             }
 
-            return Ok(group);
+            return new ResponseObject { data = @group,
+            status="success"};
         }
 
         // PUT: api/Group/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutGroup(int id, GroupDto @group)
+        public async Task<ResponseObject> PutGroup(int id, GroupDto @group)
         {
             if (id != @group.Id)
             {
-                return BadRequest();
+                return new ResponseObject() { status = "error" };
             }
-            await _service.Update(@group);
-            return NoContent();
+            try
+            {
+                await _service.Update(@group);
+                return new ResponseObject() { status = "success" };
+            }
+            catch (Exception ex)
+            {
+                return new ResponseObject { status="error" };
+            }
         }
 
         // POST: api/Group
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<GroupDto>> PostGroup(GroupDto @group)
+        public async Task<ResponseObject> PostGroup(GroupDto @group)
         {
-            await _service.Insert(@group);
-
-            return NoContent();
+            
+            try
+            {
+                await _service.Insert(@group);
+                return new ResponseObject() { status = "success" };
+            }
+            catch (Exception ex)
+            {
+                return new ResponseObject { status = "error" };
+            }
+            
         }
 
        [HttpGet("get-by-account")]
-       public async Task<ActionResult<IEnumerable<ExtendedGroupDto>>> FindByAccount(string email)
+       public async Task<ResponseObject> FindByAccount(string email)
         {
             var entities = await _service.GetGroupByAccount(email);
-            if(entities == null)
-            {
-                return NoContent();
-            }
-            return Ok(@entities);
+            ResponseObject response = new ResponseObject();
+            response.data = entities;
+            return response;
+        }
+
+        [HttpGet("search")]
+        public async Task<ResponseObject> Search([FromQuery] GroupParameter param)
+        {
+            var entities = await _service.Search(param);
+            ResponseObject response = new ResponseObject();
+            response.data = entities;
+            return response;
         }
     }
 }
