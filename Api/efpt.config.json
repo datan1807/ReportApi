@@ -54,7 +54,7 @@
          "ObjectType": 0
       }
    ],
-   "UiHint": "swp391.QLReport",
+   "UiHint": "swp391-v2.ReportManagementDB",
    "UseBoolPropertiesWithoutDefaultSql": false,
    "UseDatabaseNames": false,
    "UseDbContextSplitting": false,
