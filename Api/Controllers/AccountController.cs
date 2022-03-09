@@ -26,34 +26,6 @@ namespace Api.Controllers
         {
             _service = service;
         }
-
-        // GET: api/Accounts
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<AccountDto>>> GetAccounts()
-        {
-            var enties = await _service.GetAll();
-            return Ok(enties);
-        }
-
-        [HttpPost("login")]
-        public async Task<ResponseObject> Login([FromBody] AccountDto dto)
-        {
-            var result = await _service.GetByEmail(dto.Email);
-            if (result == null)
-            {
-                return new ResponseObject
-                {
-                    status = "error",
-                    message = "Account is not found"
-                };
-            }
-            return new ResponseObject
-            {
-                status = "success",
-                data = result
-            };
-        }
-
         // GET: api/Accounts/5
         [HttpGet("{id}")]
         public async Task<ResponseObject> GetAccount(int id)
@@ -118,13 +90,6 @@ namespace Api.Controllers
                 };
             }
 
-        }
-
-
-
-        private bool AccountExists(int id)
-        {
-            return _service.GetById(id) != null;
         }
 
         [HttpGet("search")]
