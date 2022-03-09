@@ -60,15 +60,15 @@ builder.Services.AddCors(options =>
     options.AddPolicy("Policy1",
         builder =>
         {
-            builder.WithOrigins("https://report-management.azurewebsites.net",
-                                "https://www.report-management.azurewebsites.net");
+            builder.WithOrigins("https://swp391.azurewebsites.net/",
+                                "https://swp391.azurewebsites.net/");
         });
 
     options.AddPolicy("AnotherPolicy",
         builder =>
         {
-            builder.WithOrigins("https://www.report-management.azurewebsites.net",
-                "https://report-management.azurewebsites.net")
+            builder.WithOrigins("https://swp391.azurewebsites.net/",
+                "https://swp391.azurewebsites.net/")
                                 .AllowAnyHeader()
                                 .AllowAnyMethod();
         });
