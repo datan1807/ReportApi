@@ -11,5 +11,6 @@ namespace Api.Services.IService
         Task<PagingData<ExtendedAccountDto>> Search(AccountParameter param);
         Task<ExtendedAccountDto> GetByEmail(string email);
         Task<bool> UpdateStatus(string email);
+        Task<IEnumerable<ExtendedAccountDto>> GetAccountByGroup(string groupCode);
     }
 }

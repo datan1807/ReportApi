@@ -21,6 +21,7 @@ namespace Api.Mapping
             CreateMap<AccountGroup, AccountGroupDto>().ReverseMap();
             CreateMap<Mark, MarkDto>().ReverseMap();
             CreateMap<ExtendedGroup, ExtendedGroupDto>().ReverseMap();
+            CreateMap<ExtendedAccount, ExtendedAccountDto>().ReverseMap();
         }
     }
 }

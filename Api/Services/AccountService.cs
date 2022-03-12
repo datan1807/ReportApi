@@ -48,6 +48,12 @@ namespace Api.Services
             await _unitOfWork.AccountRepository.DeleteById(_mapper.Map<Account>(entity));
         }
 
+        public async Task<IEnumerable<ExtendedAccountDto>> GetAccountByGroup(string groupCode)
+        {
+            var entities = await _unitOfWork.AccountGroupRepository.GetAccountByGroup(groupCode);
+            return _mapper.Map<IEnumerable<ExtendedAccountDto>>(entities).ToList();
+        }
+
         public async Task<IEnumerable<AccountDto>> GetAll()
         {
             var entity = await _unitOfWork.AccountRepository.GetAll();

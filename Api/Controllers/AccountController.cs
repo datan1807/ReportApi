@@ -140,5 +140,16 @@ namespace Api.Controllers
             return new ResponseObject { status = "failed" };
 
         }
+
+        [HttpGet("get-by-group/{groupCode}")]
+        public async Task<ResponseObject> GetByGroup(string groupCode)
+        {
+            var entities = await _service.GetAccountByGroup(groupCode);
+            return new ResponseObject
+            {
+                status = "success",
+                data = entities
+            };
+        }
     }
 }

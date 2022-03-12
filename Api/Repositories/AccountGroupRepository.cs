@@ -53,5 +53,19 @@ namespace Api.Repositories
             }).ToListAsync();
            return entities;
         }
+
+        public async Task<IEnumerable<ExtendedAccount>> GetAccountByGroup(string groupCode)
+        {
+            var entities = await _context.AccountGroups.Where(a => a.Group.GroupCode == groupCode).Select(a => new ExtendedAccount
+            {
+                Email = a.Account.Email,
+                AccountCode = a.Account.AccountCode,
+                Fullname = a.Account.Fullname,
+                RoleId = a.Account.RoleId,
+                RoleName = a.Account.Role.Name,
+                Id = a.Account.Id
+            }).ToListAsync();
+            return entities;
+        }
     }
 }

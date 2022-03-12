@@ -9,5 +9,6 @@ namespace Api.Repositories.IRepositories
         Task<IEnumerable<ExtendedAccountGroup>> FindByGroupId(int id);
         Task<IEnumerable<Group>> FindByAccount(string email);
         Task<bool> CheckExist(ExtendedAccountGroupDto dto);
+        Task<IEnumerable<ExtendedAccount>> GetAccountByGroup(string groupCode);
     }
 }
