@@ -26,6 +26,20 @@ namespace Api.Repositories
             return true;
         }
 
+        public async Task<ExtendedGroup> GetByGroupId(int id)
+        {
+            var entity = await _context.Groups.Where(g => g.Id == id).Select(g => new ExtendedGroup
+            {
+                Id = g.Id,
+                GroupCode = g.GroupCode,
+                ProjectId = g.ProjectId,
+                ProjectName =g.Project.ProjectName,
+                Semester = g.Semester,
+                Year = g.Year
+            }).FirstOrDefaultAsync();
+            return entity;
+        }
+
         public async Task<PagedList<ExtendedGroup>> Search(GroupParameter param)
         {
             var entities = await _context.Groups.Select(g => new ExtendedGroup

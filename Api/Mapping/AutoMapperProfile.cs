@@ -20,6 +20,7 @@ namespace Api.Mapping
             CreateMap<TeacherEvaluation, TeacherEvaluationDto>().ReverseMap();
             CreateMap<AccountGroup, AccountGroupDto>().ReverseMap();
             CreateMap<Mark, MarkDto>().ReverseMap();
+            CreateMap<ExtendedGroup, ExtendedGroupDto>().ReverseMap();
         }
     }
 }

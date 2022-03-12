@@ -9,5 +9,6 @@ namespace Api.Repositories.IRepositories
     {
         Task<PagedList<ExtendedGroup>> Search(GroupParameter param);
         Task<bool> CheckExist(string groupCode);
+        Task<ExtendedGroup> GetByGroupId(int id);
     }
 }

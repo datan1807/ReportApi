@@ -41,15 +41,18 @@ namespace Api.Controllers
         [HttpGet("{id}")]
         public async Task<ResponseObject> GetGroup(int id)
         {
-            var @group = await _service.GetById(@id);
+            var @group = await _service.GetByGroupId(@id);
 
             if (@group == null)
             {
                 return new ResponseObject { status = "error" };
             }
 
-            return new ResponseObject { data = @group,
-            status="success"};
+            return new ResponseObject
+            {
+                data = @group,
+                status = "success"
+            };
         }
 
         // PUT: api/Group/5
@@ -68,7 +71,7 @@ namespace Api.Controllers
             }
             catch (Exception ex)
             {
-                return new ResponseObject { status="error" };
+                return new ResponseObject { status = "error" };
             }
         }
 
@@ -77,7 +80,7 @@ namespace Api.Controllers
         [HttpPost]
         public async Task<ResponseObject> PostGroup(GroupDto @group)
         {
-            
+
             try
             {
                 await _service.Insert(@group);
@@ -87,11 +90,11 @@ namespace Api.Controllers
             {
                 return new ResponseObject { status = "error" };
             }
-            
+
         }
 
-       [HttpGet("get-by-account")]
-       public async Task<ResponseObject> FindByAccount(string email)
+        [HttpGet("get-by-account")]
+        public async Task<ResponseObject> FindByAccount(string email)
         {
             var entities = await _service.GetGroupByAccount(email);
             ResponseObject response = new ResponseObject();

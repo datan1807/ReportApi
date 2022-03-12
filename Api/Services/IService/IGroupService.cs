@@ -10,5 +10,6 @@ namespace Api.Services.IService
         Task<IEnumerable<ExtendedGroupDto>> GetGroupByAccount(string accountId);
         Task<PagingData<ExtendedGroupDto>> Search(GroupParameter param);
         Task<bool> CheckCodeExist(string groupCode);
+        Task<ExtendedGroupDto> GetByGroupId(int groupId);
     }
 }

@@ -38,6 +38,12 @@ namespace Api.Services
             return _mapper.Map<IEnumerable<GroupDto>>(entities);
         }
 
+        public async Task<ExtendedGroupDto> GetByGroupId(int groupId)
+        {
+            var entity = await _unitOfWork.GroupRepository.GetByGroupId(groupId);
+            return _mapper.Map<ExtendedGroupDto>(entity);
+        }
+
         public async Task<GroupDto> GetById(object id)
         {
             var entity = await _unitOfWork.GroupRepository.GetById(id);
@@ -61,6 +67,9 @@ namespace Api.Services
         {
             var dto = _mapper.Map<Group>(entity);
             await _unitOfWork.GroupRepository.Insert(dto);
+            var project = await _unitOfWork.ProjectRepository.GetById(entity.ProjectId);
+            project.Status = Constants.STATUS.INACTIVE;
+            await _unitOfWork.ProjectRepository.Update(project);
             await _unitOfWork.CompleteAsync();
         }
 
