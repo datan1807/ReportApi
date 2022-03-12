@@ -141,5 +141,15 @@ namespace Api.Controllers
                 };
             }
         }
+        [HttpGet("get-active")]
+        public async Task<ResponseObject> GetByStatus()
+        {
+            var entities = await _service.GetByStatus(Constants.STATUS.ACTIVE);
+            return new ResponseObject
+            {
+                data = entities,
+                status = Constants.STATUS.SUCCESS
+        };
+        }
     }
 }

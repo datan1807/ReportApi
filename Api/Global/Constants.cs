@@ -9,5 +9,13 @@
             public const int TEACHER = 3;
             public const int STUDENT = 4;
         }
+        public class STATUS
+        {
+            public static string ACTIVE = "Active";
+            public static string INACTIVE = "Inactive";
+            public static string SUCCESS = "success";
+            public static string FAILURE = "fail";
+            public static string ERROR = "error";
+        }
     }
 }

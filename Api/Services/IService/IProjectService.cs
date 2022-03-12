@@ -8,5 +8,6 @@ namespace Api.Services.IService
     {
         Task<PagingData<ProjectDto>> Search(ProjectParameter param);
         Task Inactive(int id);
+        Task<IEnumerable<ProjectDto>> GetByStatus(string status);
     }
 }

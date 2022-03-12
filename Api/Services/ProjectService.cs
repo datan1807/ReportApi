@@ -36,6 +36,16 @@ namespace Api.Services
             return _mapper.Map<ProjectDto>(entity);
         }
 
+        public async Task<IEnumerable<ProjectDto>> GetByStatus(string status)
+        {
+            var entities = await _unitOfWork.ProjectRepository.Get(p => p.Status == status);
+            if(entities == null)
+            {
+                return null;
+            }
+            return _mapper.Map<IEnumerable<ProjectDto>>(entities).ToList();
+        }
+
         public async Task Inactive(int id)
         {
             var entity = await _unitOfWork.ProjectRepository.GetById(id);
