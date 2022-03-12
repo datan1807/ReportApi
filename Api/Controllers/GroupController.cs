@@ -107,5 +107,13 @@ namespace Api.Controllers
             response.data = entities;
             return response;
         }
+
+        [HttpGet("check-exist")]
+        public async Task<IActionResult> CheckExist([FromQuery] string groupCode)
+        {
+            bool result = false;
+            result = await _service.CheckCodeExist(groupCode);
+            return Ok(result);
+        }
     }
 }

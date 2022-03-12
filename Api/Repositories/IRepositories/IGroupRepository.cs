@@ -8,5 +8,6 @@ namespace Api.Repositories.IRepositories
     public interface IGroupRepository:IGenericRepository<Group>
     {
         Task<PagedList<ExtendedGroup>> Search(GroupParameter param);
+        Task<bool> CheckExist(string groupCode);
     }
 }

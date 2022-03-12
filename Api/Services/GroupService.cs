@@ -19,6 +19,14 @@ namespace Api.Services
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
+
+        public async Task<bool> CheckCodeExist(string groupCode)
+        {
+            bool result = false;
+            result = await _unitOfWork.GroupRepository.CheckExist(groupCode);
+            return result;
+        }
+
         public Task Delete(GroupDto entity)
         {
             throw new NotImplementedException();
