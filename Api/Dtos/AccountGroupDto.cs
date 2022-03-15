@@ -5,5 +5,6 @@
         public int Id { get; set; }
         public int GroupId { get; set; }
         public int AccountId { get; set; }
+        public string Role { get; set; }
     }
 }

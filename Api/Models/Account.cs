@@ -21,7 +21,6 @@ namespace Api.Models
         [Required]
         [StringLength(50)]
         public string Email { get; set; }
-        [Required]
         [StringLength(250)]
         public string Password { get; set; }
         [Required]
@@ -30,7 +29,7 @@ namespace Api.Models
         public int RoleId { get; set; }
         [Column(TypeName = "date")]
         public DateTime? Birthday { get; set; }
-        [StringLength(10)]
+        [StringLength(11)]
         public string Phone { get; set; }
         [StringLength(150)]
         public string Address { get; set; }

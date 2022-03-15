@@ -49,7 +49,8 @@ namespace Api.Repositories
                 Id = e.Id,
                 AccountId = e.AccountId,
                 Email= e.Account.Email,
-                ProjectName = e.Group.Project.ProjectName
+                ProjectName = e.Group.Project.ProjectName,
+                Role = e.Role
             }).ToListAsync();
            return entities;
         }
@@ -63,7 +64,8 @@ namespace Api.Repositories
                 Fullname = a.Account.Fullname,
                 RoleId = a.Account.RoleId,
                 RoleName = a.Account.Role.Name,
-                Id = a.Account.Id
+                Id = a.Account.Id,
+                RoleInGroup = a.Role
             }).ToListAsync();
             return entities;
         }

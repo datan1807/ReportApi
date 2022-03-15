@@ -25,7 +25,7 @@ namespace Api.Models
         public string Semester { get; set; }
         public int Year { get; set; }
         public int ProjectId { get; set; }
-        [StringLength(10)]
+        [StringLength(50)]
         public string GroupCode { get; set; }
 
         [ForeignKey(nameof(ProjectId))]

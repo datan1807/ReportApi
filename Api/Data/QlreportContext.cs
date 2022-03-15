@@ -34,10 +34,6 @@ namespace Api.Data
         {
             modelBuilder.Entity<Account>(entity =>
             {
-                entity.Property(e => e.AccountCode).IsFixedLength();
-
-                entity.Property(e => e.Phone).IsFixedLength();
-
                 entity.HasOne(d => d.Role)
                     .WithMany(p => p.Accounts)
                     .HasForeignKey(d => d.RoleId)
@@ -71,8 +67,6 @@ namespace Api.Data
 
             modelBuilder.Entity<Group>(entity =>
             {
-                entity.Property(e => e.GroupCode).IsFixedLength();
-
                 entity.HasOne(d => d.Project)
                     .WithMany(p => p.Groups)
                     .HasForeignKey(d => d.ProjectId)

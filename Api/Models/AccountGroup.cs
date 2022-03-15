@@ -15,6 +15,8 @@ namespace Api.Models
         public int GroupId { get; set; }
         [Key]
         public int Id { get; set; }
+        [StringLength(50)]
+        public string Role { get; set; }
 
         [ForeignKey(nameof(AccountId))]
         [InverseProperty("AccountGroups")]
