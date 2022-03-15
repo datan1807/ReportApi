@@ -65,7 +65,8 @@ namespace Api.Repositories
                 Birthday = e.Birthday,
                 RoleId = e.RoleId,
                 RoleName = e.Role.Name,
-                Status = e.Status
+                Status = e.Status,
+                Id = e.Id
             }).ToListAsync();
             if(!String.IsNullOrEmpty(param.Status))
             {

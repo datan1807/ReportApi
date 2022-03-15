@@ -35,7 +35,8 @@ namespace Api.Services
                 Birthday = result.Birthday,
                 Phone = result.Phone,
                 Address = result.Address,
-                Status = result.Status
+                Status = result.Status,
+                Id = result.Id,
             };
         }
 
@@ -145,7 +146,8 @@ namespace Api.Services
                     Phone= c.Phone, 
                     RoleId = c.RoleId,
                     RoleName = c.RoleName,
-                    Status = c.Status
+                    Status = c.Status,
+                    Id = c.Id
                 }).ToList()
             };
             return data;
