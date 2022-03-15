@@ -25,8 +25,10 @@ namespace Api.Repositories
                 Password = e.Password,
                 Fullname = e.Fullname,
                 RoleId = e.RoleId,
-                RoleName = e.Role.Name
-                
+                RoleName = e.Role.Name,
+                Id = e.Id,
+                AccountCode = e.AccountCode,
+                Status = e.Status
 
             }).FirstOrDefaultAsync();
             if (entity == null)

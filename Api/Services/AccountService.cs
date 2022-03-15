@@ -61,6 +61,12 @@ namespace Api.Services
             return _mapper.Map<IEnumerable<AccountDto>>(entity).ToList();
         }
 
+        public async Task<IEnumerable<AccountDto>> GetByCode(string code, int role)
+        {
+            var entities = await _unitOfWork.AccountRepository.Get(a => a.AccountCode.Contains(code) && a.RoleId == role);
+            return _mapper.Map<IEnumerable<AccountDto>>(entities);
+        }
+
         public async Task<ExtendedAccountDto> GetByEmail(string email)
         {
             var entity = await _unitOfWork.AccountRepository.GetByEmail(email);
@@ -92,6 +98,12 @@ namespace Api.Services
             return _mapper.Map<AccountDto>(entity);
         }
 
+        public async Task<IEnumerable<AccountDto>> GetByRole(int role)
+        {
+            var entities = await _unitOfWork.AccountRepository.Get(a => a.RoleId == role && a.Status == Constants.STATUS.ACTIVE);
+            return _mapper.Map<IEnumerable<AccountDto>>(entities).ToList();
+        }
+
         //public async Task<AuthResponse> GetToken(AuthRequest request)
         //{
         //    AuthResponse response = new AuthResponse();
@@ -112,7 +124,7 @@ namespace Api.Services
         //        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(keyBytes),SecurityAlgorithms.HmacSha256)
         //    };
         //    var token = tokenHandle.CreateToken(description);
-            
+
         //    response.Token = tokenHandle.WriteToken(token);
         //    response.Account = dto;
         //    return response;

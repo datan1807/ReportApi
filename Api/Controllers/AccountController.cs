@@ -151,5 +151,27 @@ namespace Api.Controllers
                 data = entities
             };
         }
+
+        [HttpGet("get-by-role")]
+        public async Task<ResponseObject> GetByRole(int role)
+        {
+            var entities = await _service.GetByRole(role);
+            return new ResponseObject
+            {
+                data = entities,
+                status = Constants.STATUS.SUCCESS
+            };
+        }
+
+        [HttpGet("get-by-code")]
+        public async Task<ResponseObject> GetByCode(string code, int role)
+        {
+            var entities = await _service.GetByCode(code, role);
+            return new ResponseObject
+            {
+                data = entities,
+                status = Constants.STATUS.SUCCESS
+            };
+        }
     }
 }

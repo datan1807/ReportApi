@@ -12,5 +12,7 @@ namespace Api.Services.IService
         Task<ExtendedAccountDto> GetByEmail(string email);
         Task<bool> UpdateStatus(int id);
         Task<IEnumerable<ExtendedAccountDto>> GetAccountByGroup(string groupCode);
+        Task<IEnumerable<AccountDto>> GetByRole(int role);
+        Task<IEnumerable<AccountDto>> GetByCode(string code, int role);
     }
 }
