@@ -125,9 +125,9 @@ namespace Api.Controllers
         }
 
         [HttpDelete("delete")]
-        public async Task<ResponseObject> Delete(string email)
+        public async Task<ResponseObject> Delete(int id)
         {
-            var result = await _service.UpdateStatus(email);
+            var result = await _service.UpdateStatus(id);
             if (result)
             {
                 return new ResponseObject

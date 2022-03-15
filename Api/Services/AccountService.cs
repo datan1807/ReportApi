@@ -158,9 +158,9 @@ namespace Api.Services
             await _unitOfWork.AccountRepository.Update(dto);
         }
 
-        public async Task<bool> UpdateStatus(string email)
+        public async Task<bool> UpdateStatus(int id)
         {
-            var dto =await _unitOfWork.AccountRepository.GetById(email);
+            var dto =await _unitOfWork.AccountRepository.GetById(id);
             if (dto == null)
             {
                 return false;

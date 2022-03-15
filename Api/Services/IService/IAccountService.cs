@@ -10,7 +10,7 @@ namespace Api.Services.IService
         Task<AccountDto> CheckLogin(string mail, string pass);
         Task<PagingData<ExtendedAccountDto>> Search(AccountParameter param);
         Task<ExtendedAccountDto> GetByEmail(string email);
-        Task<bool> UpdateStatus(string email);
+        Task<bool> UpdateStatus(int id);
         Task<IEnumerable<ExtendedAccountDto>> GetAccountByGroup(string groupCode);
     }
 }
