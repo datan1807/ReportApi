@@ -7,7 +7,7 @@ namespace Api.Repositories.IRepositories
 {
     public interface ISubmitRepository : IGenericRepository<Submit>
     {
-        Task<ExtendedSubmit> GetByReportAndProject(int reportId, int projectId);
+        Task<ExtendedSubmit> GetByReportAndGroup(int reportId, int groupId);
         Task<PagedList<ExtendedSubmit>> Search(SubmitParameter param);
     }
 }

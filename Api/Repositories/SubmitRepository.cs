@@ -16,9 +16,9 @@ namespace Api.Repositories
             _context = context;
         }
 
-        public async Task<ExtendedSubmit> GetByReportAndProject(int reportId, int projectId)
+        public async Task<ExtendedSubmit> GetByReportAndGroup(int reportId, int groupId)
         {
-            var entity = await _context.Submits.Where(s => s.ReportId == reportId && s.Group.ProjectId == projectId).Select(c => new ExtendedSubmit
+            var entity = await _context.Submits.Where(s => s.ReportId == reportId && s.GroupId == groupId).Select(c => new ExtendedSubmit
             {
                 ReportId = c.ReportId,
                 Id = c.Id,

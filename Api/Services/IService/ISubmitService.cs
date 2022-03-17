@@ -7,7 +7,7 @@ namespace Api.Services.IService
 {
     public interface ISubmitService:IGenericService<SubmitDto>
     {
-        Task<ExtendedSubmitDto> GetByProjectAndReport(int reportId, int projectId);
+        Task<ExtendedSubmitDto> GetByReportAndGroup(int reportId, int groupId);
         Task<PagingData<ExtendedSubmitDto>> Search(SubmitParameter param);
     }
 }

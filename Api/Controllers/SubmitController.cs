@@ -88,9 +88,9 @@ namespace Api.Controllers
             }
         }
         [HttpGet("get-by-report-and-project")]
-        public async Task<ResponseObject> GetByReportAndProject(int reportId, int projectId)
+        public async Task<ResponseObject> GetByReportAndProject(int reportId, int groupId)
         {
-            if(reportId <=0 && projectId <= 0)
+            if(reportId <0 && groupId < 0)
             {
                 return new ResponseObject
                 {
@@ -98,7 +98,7 @@ namespace Api.Controllers
                     message = "Param is not null"
                 };
             }
-            var entity = await _service.GetByProjectAndReport(reportId, projectId);
+            var entity = await _service.GetByReportAndGroup(reportId, groupId);
             return new ResponseObject
             {
                 data = entity,

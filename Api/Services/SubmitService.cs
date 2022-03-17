@@ -37,9 +37,9 @@ namespace Api.Services
             return _mapper.Map<SubmitDto>(entity);
         }
 
-        public async Task<ExtendedSubmitDto> GetByProjectAndReport(int reportId, int projectId)
+        public async Task<ExtendedSubmitDto> GetByReportAndGroup(int reportId, int groupId)
         {
-            var entity = await _unitOfWork.SubmitRepository.GetByReportAndProject(reportId, projectId);
+            var entity = await _unitOfWork.SubmitRepository.GetByReportAndGroup(reportId, groupId);
             if(entity != null)
             {
                 return new ExtendedSubmitDto
