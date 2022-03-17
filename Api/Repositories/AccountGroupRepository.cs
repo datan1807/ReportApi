@@ -32,7 +32,7 @@ namespace Api.Repositories
         public async Task<IEnumerable<Group>> FindByAccount(string email)
         {
             var entities = await _context.AccountGroups.Where(c => c.Account.Email == email).Select(g => new Group {
-                Id = g.Id,
+                Id = g.Group.Id,
                 Project = g.Group.Project,
                 ProjectId = g.Group.ProjectId,
                 Semester = g.Group.Semester,
