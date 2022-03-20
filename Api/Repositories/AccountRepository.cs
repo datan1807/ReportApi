@@ -100,5 +100,30 @@ namespace Api.Repositories
             }
             return PagedList<ExtendedAccount>.ToPagedList(entity,param.PageNumber,param.PageSize);
         }
+
+        public async Task<PagedList<Account>> SearchAvailableMember(MemberParameter param)
+        {
+            var members = await _context.AccountGroups.Where(
+                 a => a.Group.Semester == param.Semester
+                 && a.Account.RoleId == param.RoleId
+                 && a.Group.Year == param.Year
+                 ).Select(a => new Account
+                 {
+                     Id = a.Account.Id,
+                     AccountCode = a.Account.AccountCode,
+                     Fullname = a.Account.Fullname,
+                     Email = a.Account.Email
+                 }).ToListAsync();
+            var entities = await _context.Accounts.Where(a => a.Fullname.Contains(param.Name) 
+            && a.Status == Constants.STATUS.ACTIVE
+            && a.RoleId == param.RoleId
+            ).ToListAsync();
+            entities = entities.ExceptBy(members.Select(m => m.Id), a => a.Id).ToList();
+            if (!string.IsNullOrEmpty(param.Code))
+            {
+                entities = entities.Where(e => e.AccountCode == param.Code).ToList();
+            }
+            return PagedList<Account>.ToPagedList(entities,param.PageNumber,param.PageSize);
+        }
     }
 }

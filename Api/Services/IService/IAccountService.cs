@@ -16,5 +16,6 @@ namespace Api.Services.IService
         Task<IEnumerable<AccountDto>> GetByCode(string code, int role);
         Task<bool> CheckEmail(string email);
         Task<bool?> CheckCode(string code);
+        Task<PagingData<AccountDto>> GetMember(MemberParameter param);
     }
 }

@@ -193,5 +193,14 @@ namespace Api.Controllers
                 status = Constants.STATUS.SUCCESS
             };
         }
+        [HttpGet("get-available-member")]
+        public async Task<ResponseObject> GetAvailableMember([FromQuery]MemberParameter parameter)
+        {
+            return new ResponseObject
+            {
+                data = await _service.GetMember(parameter),
+                status = Constants.STATUS.SUCCESS
+            };
+        }
     }
 }

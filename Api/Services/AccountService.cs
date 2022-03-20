@@ -114,6 +114,32 @@ namespace Api.Services
             return _mapper.Map<IEnumerable<AccountDto>>(entities).ToList();
         }
 
+        public async Task<PagingData<AccountDto>> GetMember(MemberParameter param)
+        {
+            var result = await _unitOfWork.AccountRepository.SearchAvailableMember(param);
+            return new PagingData<AccountDto>
+            {
+                HasNext = result.HasNext,
+                HasPrevious = result.HasPrevious,
+                PageIndex = result.PageIndex,
+                PageSize = result.PageSize,
+                TotalCount = result.TotalCount,
+                TotalPages = result.TotalPages,
+                Items = result.Select(x => new AccountDto
+                {
+                    Id = x.Id,
+                    AccountCode = x.AccountCode,
+                    Fullname = x.Fullname,
+                    Email = x.Email,
+                    RoleId = x.RoleId,
+                    Status = x.Status,
+                    Phone = x.Phone,
+                    Address = x.Address,
+                    Birthday = x.Birthday
+                }).ToList()
+            };
+        }
+
         public async Task Insert(AccountDto entity)
         {
             if(entity != null)

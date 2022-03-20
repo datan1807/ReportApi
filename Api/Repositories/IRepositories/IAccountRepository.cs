@@ -12,6 +12,7 @@ namespace Api.Repositories.IRepositories
         Task<ExtendedAccount> GetByEmail(string email);
         Task<bool> CheckMail(string email);
         Task<bool> CheckCode(string code);
+        Task<PagedList<Account>> SearchAvailableMember(MemberParameter param);
     }
 }
 
