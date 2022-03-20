@@ -17,6 +17,16 @@ namespace Api.Repositories
             _context = context;
         }
 
+        public async Task<bool> CheckCode(string code)
+        {
+            if (string.IsNullOrEmpty(code))
+            {
+                return false;
+            }
+            string value = code.ToUpper();
+            return await _context.Accounts.Where(a => a.AccountCode.ToUpper() == value).AnyAsync();
+        }
+
         public async Task<ExtendedAccount> CheckLogin(string email, string password)
         {
             var entity =  await _context.Accounts.Where(a => a.Email == email && a.Password == password).Select(e => new ExtendedAccount
@@ -36,6 +46,16 @@ namespace Api.Repositories
                 return null;
             }
             return entity;
+        }
+
+        public async Task<bool> CheckMail(string email)
+        {
+            if (email == null)
+            {
+                return false;
+            }
+            string mail = email.ToUpper();
+            return await _context.Accounts.Where(a => a.Email.ToUpper() == mail).AnyAsync();
         }
 
         public async Task<ExtendedAccount> GetByEmail(string email)

@@ -173,5 +173,25 @@ namespace Api.Controllers
                 status = Constants.STATUS.SUCCESS
             };
         }
+
+        [HttpGet("check-mail-exist")]
+        public async Task<ResponseObject> CheckMail([FromQuery]string email)
+        {
+            return new ResponseObject
+            {
+                data = await _service.CheckEmail(email),
+                status = Constants.STATUS.SUCCESS
+            };
+        }
+
+        [HttpGet("check-code-exist")]
+        public async Task<ResponseObject> CheckCode([FromQuery] string accountCode)
+        {
+            return new ResponseObject
+            {
+                data = await _service.CheckCode(accountCode),
+                status = Constants.STATUS.SUCCESS
+            };
+        }
     }
 }
