@@ -140,6 +140,28 @@ namespace Api.Services
             };
         }
 
+        public async Task<PagingData<AccountDto>> GetMentor(MemberParameter param)
+        {
+            var entities = await _unitOfWork.AccountRepository.SearchMentor(param);
+            return new PagingData<AccountDto>
+            {
+                HasNext = entities.HasNext,
+                HasPrevious = entities.HasPrevious,
+                PageIndex = entities.PageIndex,
+                PageSize = entities.PageSize,
+                TotalCount = entities.TotalCount,
+                TotalPages = entities.TotalPages,
+                Items = entities.Select(x => new AccountDto
+                {
+                    AccountCode = x.AccountCode,
+                    Id = x.Id,
+                    Email = x.Email,
+                    Fullname = x.Fullname,
+                    RoleId = x.RoleId
+                }).ToList()
+            };
+        }
+
         public async Task Insert(AccountDto entity)
         {
             if(entity != null)

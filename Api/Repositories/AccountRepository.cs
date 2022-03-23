@@ -125,5 +125,19 @@ namespace Api.Repositories
             }
             return PagedList<Account>.ToPagedList(entities,param.PageNumber,param.PageSize);
         }
+
+        public async Task<PagedList<Account>> SearchMentor(MemberParameter param)
+        {
+            var entity = await _context.Accounts.Where(
+                a => a.RoleId == param.RoleId
+            && a.Fullname.Contains(param.Name)
+            && a.Status == Constants.STATUS.ACTIVE
+            ).ToListAsync();
+            if (!string.IsNullOrEmpty(param.Code))
+            {
+                entity = entity.Where(e => e.AccountCode == param.Code).ToList();
+            }
+            return PagedList<Account>.ToPagedList(entity,param.PageNumber,param.PageSize);
+        }
     }
 }

@@ -17,5 +17,6 @@ namespace Api.Services.IService
         Task<bool> CheckEmail(string email);
         Task<bool?> CheckCode(string code);
         Task<PagingData<AccountDto>> GetMember(MemberParameter param);
+        Task<PagingData<AccountDto>> GetMentor(MemberParameter param);
     }
 }
