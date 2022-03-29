@@ -21,7 +21,6 @@ namespace Api.Data
 
         public virtual DbSet<Account> Accounts { get; set; }
         public virtual DbSet<AccountGroup> AccountGroups { get; set; }
-        public virtual DbSet<CouncilEvaluation> CouncilEvaluations { get; set; }
         public virtual DbSet<Group> Groups { get; set; }
         public virtual DbSet<Mark> Marks { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
@@ -54,15 +53,6 @@ namespace Api.Data
                     .HasForeignKey(d => d.GroupId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Account_Group_Group");
-            });
-
-            modelBuilder.Entity<CouncilEvaluation>(entity =>
-            {
-                entity.HasOne(d => d.Group)
-                    .WithMany(p => p.CouncilEvaluations)
-                    .HasForeignKey(d => d.GroupId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_CouncilEvaluation_Group");
             });
 
             modelBuilder.Entity<Group>(entity =>

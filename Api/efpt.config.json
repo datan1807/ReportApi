@@ -22,10 +22,6 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[CouncilEvaluation]",
-         "ObjectType": 0
-      },
-      {
          "Name": "[dbo].[Group]",
          "ObjectType": 0
       },
@@ -54,7 +50,7 @@
          "ObjectType": 0
       }
    ],
-   "UiHint": "swp391-v2.ReportManagementDB",
+   "UiHint": "DATND.ReportManagementDB",
    "UseBoolPropertiesWithoutDefaultSql": false,
    "UseDatabaseNames": false,
    "UseDbContextSplitting": false,

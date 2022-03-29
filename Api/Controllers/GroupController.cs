@@ -25,18 +25,6 @@ namespace Api.Controllers
             this._service = service;
         }
 
-        // GET: api/Group
-        [HttpGet]
-        public async Task<ResponseObject> GetGroups()
-        {
-            var entities = await _service.GetAll();
-            return new ResponseObject
-            {
-                status = "success",
-                data = entities
-            };
-        }
-
         // GET: api/Group/5
         [HttpGet("{id}")]
         public async Task<ResponseObject> GetGroup(int id)
@@ -78,9 +66,8 @@ namespace Api.Controllers
         // POST: api/Group
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ResponseObject> PostGroup(GroupDto @group)
+        public async Task<ResponseObject> PostGroup([FromBody] GroupDto @group)
         {
-
             try
             {
                 await _service.Insert(@group);
@@ -90,7 +77,6 @@ namespace Api.Controllers
             {
                 return new ResponseObject { status = "error" };
             }
-
         }
 
         [HttpGet("get-by-account")]
@@ -117,6 +103,43 @@ namespace Api.Controllers
             bool result = false;
             result = await _service.CheckCodeExist(groupCode);
             return Ok(result);
+        }
+
+        [HttpPost("insert")]
+        public async Task<ResponseObject> InsertGroup([FromBody] ExtendedGroupInsertDto dto)
+        {
+            if (dto == null)
+            {
+                return new ResponseObject
+                {
+                    status = "error",
+                };
+            }
+            else
+            {
+                try
+                {
+                    bool result = await _service.InsertGroup(dto);
+                    if (result)
+                    {
+                        return new ResponseObject
+                        {
+                            status = Constants.STATUS.SUCCESS,
+                        };
+                    }
+                    else return  new ResponseObject
+                    {
+                        status = "error",
+                    };
+                }
+                catch (Exception ex)
+                {
+                    return new ResponseObject
+                    {
+                        status = "error",
+                    };
+                }
+            }
         }
     }
 }

@@ -73,6 +73,67 @@ namespace Api.Services
             await _unitOfWork.CompleteAsync();
         }
 
+        public async Task<bool> InsertGroup(ExtendedGroupInsertDto dto)
+        {
+            try
+            {
+                GroupDto group = new GroupDto
+                {
+                    GroupCode = dto.GroupCode,
+                    ProjectId = dto.ProjectId,
+                    Semester = dto.Semester,
+                    Year = dto.Year
+                };
+                var mentorId = dto.MentorId;
+                var leaderId = dto.LeaderId;
+                var members = dto.Members;
+                var groupEntity = _mapper.Map<Group>(group);
+                await _unitOfWork.GroupRepository.Insert(groupEntity);
+                
+                var groupId = groupEntity.Id;
+                await InsertMember(mentorId, "Mentor", groupId);
+
+                await InsertMember(leaderId,"Leader", groupId);
+                foreach (var member in members)
+                {
+                    await InsertMember(member, "Member", groupId);
+                }
+                var project = await _unitOfWork.ProjectRepository.GetById(groupEntity.ProjectId);
+                project.Status = Constants.STATUS.INACTIVE;
+                await _unitOfWork.ProjectRepository.Update(project);
+                await _unitOfWork.CompleteAsync();
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            
+            
+        }
+        private async Task InsertMember(int memberId, String role, int groupId)
+        {
+            AccountGroupDto dto = new AccountGroupDto
+            {
+                AccountId = memberId,
+                GroupId = groupId,
+                Role = role,
+            };
+            var entity = _mapper.Map<AccountGroup>(dto);
+            await _unitOfWork.AccountGroupRepository.Insert(entity);
+            if (!role.Equals("Mentor"))
+            {
+                await InsertMark(memberId);
+            }
+        }
+        public async Task InsertMark(int memberId)
+        {
+            MarkDto mark = new MarkDto { AccountId = memberId };
+            var entity = _mapper.Map<Mark>(mark);
+            await _unitOfWork.MarkRepository.Insert(entity);
+        }
+
         public async Task<PagingData<ExtendedGroupDto>> Search(GroupParameter param)
         {
             var entities = await _unitOfWork.GroupRepository.Search(param);

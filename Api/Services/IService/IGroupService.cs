@@ -11,5 +11,6 @@ namespace Api.Services.IService
         Task<PagingData<ExtendedGroupDto>> Search(GroupParameter param);
         Task<bool> CheckCodeExist(string groupCode);
         Task<ExtendedGroupDto> GetByGroupId(int groupId);
+        Task<bool> InsertGroup(ExtendedGroupInsertDto dto);
     }
 }

@@ -50,7 +50,6 @@ namespace Api.Repositories
                 ProjectName = g.Project.ProjectName,
                 Semester = g.Semester,
                 Year = g.Year,
-                Submits = g.Submits
             }).OrderByDescending(g => g.Year).ToListAsync();
                
             if(param.Year > 0)

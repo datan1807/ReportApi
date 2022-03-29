@@ -9,7 +9,6 @@ namespace Api.UnitOfWorks
         RoleRepository RoleRepository { get; }
         GroupRepository GroupRepository { get; }
         ProjectRepository ProjectRepository { get; }
-        CouncilEvaluationRepository CouncilEvaluationRepository { get; }    
         SubmitRepository SubmitRepository { get; }
         TeacherEvaluationRepository TeacherEvaluationRepository { get; }
         AccountGroupRepository AccountGroupRepository { get; }

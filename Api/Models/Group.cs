@@ -14,7 +14,6 @@ namespace Api.Models
         public Group()
         {
             AccountGroups = new HashSet<AccountGroup>();
-            CouncilEvaluations = new HashSet<CouncilEvaluation>();
             Submits = new HashSet<Submit>();
         }
 
@@ -33,8 +32,6 @@ namespace Api.Models
         public virtual Project Project { get; set; }
         [InverseProperty(nameof(AccountGroup.Group))]
         public virtual ICollection<AccountGroup> AccountGroups { get; set; }
-        [InverseProperty(nameof(CouncilEvaluation.Group))]
-        public virtual ICollection<CouncilEvaluation> CouncilEvaluations { get; set; }
         [InverseProperty(nameof(Submit.Group))]
         public virtual ICollection<Submit> Submits { get; set; }
     }

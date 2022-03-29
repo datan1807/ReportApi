@@ -12,7 +12,6 @@ namespace Api.UnitOfWorks
         public RoleRepository RoleRepository { get; private set; }
         public GroupRepository GroupRepository { get; private set; }
         public ProjectRepository ProjectRepository { get; private set; }
-        public CouncilEvaluationRepository CouncilEvaluationRepository { get; private set; }
         public SubmitRepository SubmitRepository { get; private set; }
         public TeacherEvaluationRepository TeacherEvaluationRepository { get; private set; }
         public AccountGroupRepository AccountGroupRepository { get; private set; }
@@ -31,7 +30,6 @@ namespace Api.UnitOfWorks
             RoleRepository = new RoleRepository(_context);
             GroupRepository = new GroupRepository(_context);
             ProjectRepository = new ProjectRepository(_context);
-            CouncilEvaluationRepository = new CouncilEvaluationRepository(_context);
             SubmitRepository = new SubmitRepository(_context);
             TeacherEvaluationRepository = new TeacherEvaluationRepository(_context);
             AccountGroupRepository = new AccountGroupRepository(_context);
