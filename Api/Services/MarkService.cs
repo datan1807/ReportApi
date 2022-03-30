@@ -29,9 +29,9 @@ namespace Api.Services
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<ExtendedMarkDto>> GetByGroup(int groupId)
+        public async Task<IEnumerable<ExtendedMarkDto>> GetByGroup(int groupId, bool isClose)
         {
-            var entities = await _unitOfWork.MarkRepository.GetByGroup(groupId);
+            var entities = await _unitOfWork.MarkRepository.GetByGroup(groupId, isClose);
             var result = entities.Select(x => new ExtendedMarkDto
             {
                 Id = x.Id,
@@ -51,7 +51,8 @@ namespace Api.Services
                 ProjectId = x.ProjectId,
                 ProjectName = x.ProjectName,
                 Semester = x.Semester,
-                Year = x.Year
+                Year = x.Year,
+                isClose = x.IsClose
             }).ToList();
             return result;
         }
@@ -100,6 +101,7 @@ namespace Api.Services
                     Report7 = x.Report7,
                     Final = x.Final,
                     Status = x.Status,
+                    isClose = x.IsClose
                 }).ToList()
             };
             return result;

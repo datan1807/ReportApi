@@ -13,7 +13,6 @@ namespace Api.UnitOfWorks
         public GroupRepository GroupRepository { get; private set; }
         public ProjectRepository ProjectRepository { get; private set; }
         public SubmitRepository SubmitRepository { get; private set; }
-        public TeacherEvaluationRepository TeacherEvaluationRepository { get; private set; }
         public AccountGroupRepository AccountGroupRepository { get; private set; }
         public MarkRepository MarkRepository { get; private set; }
 
@@ -31,7 +30,6 @@ namespace Api.UnitOfWorks
             GroupRepository = new GroupRepository(_context);
             ProjectRepository = new ProjectRepository(_context);
             SubmitRepository = new SubmitRepository(_context);
-            TeacherEvaluationRepository = new TeacherEvaluationRepository(_context);
             AccountGroupRepository = new AccountGroupRepository(_context);
             MarkRepository = new MarkRepository(_context);
 

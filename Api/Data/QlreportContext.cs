@@ -27,7 +27,6 @@ namespace Api.Data
         public virtual DbSet<Report> Reports { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Submit> Submits { get; set; }
-        public virtual DbSet<TeacherEvaluation> TeacherEvaluations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -88,21 +87,6 @@ namespace Api.Data
                     .HasForeignKey(d => d.ReportId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Submit_Report");
-            });
-
-            modelBuilder.Entity<TeacherEvaluation>(entity =>
-            {
-                entity.HasOne(d => d.Submit)
-                    .WithMany(p => p.TeacherEvaluations)
-                    .HasForeignKey(d => d.SubmitId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_TeacherEvaluation_Submit");
-
-                entity.HasOne(d => d.Teacher)
-                    .WithMany(p => p.TeacherEvaluations)
-                    .HasForeignKey(d => d.TeacherId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_TeacherEvaluation_Account");
             });
 
             OnModelCreatingPartial(modelBuilder);

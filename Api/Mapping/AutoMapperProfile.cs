@@ -16,7 +16,6 @@ namespace Api.Mapping
             CreateMap<Group, GroupDto>().ReverseMap();
             CreateMap<Project, ProjectDto>().ReverseMap();
             CreateMap<Submit, SubmitDto>().ReverseMap();
-            CreateMap<TeacherEvaluation, TeacherEvaluationDto>().ReverseMap();
             CreateMap<AccountGroup, AccountGroupDto>().ReverseMap();
             CreateMap<Mark, MarkDto>().ReverseMap();
             CreateMap<ExtendedGroup, ExtendedGroupDto>().ReverseMap();

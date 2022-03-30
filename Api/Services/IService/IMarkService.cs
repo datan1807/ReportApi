@@ -8,6 +8,6 @@ namespace Api.Services.IService
     public interface IMarkService :IGenericService<MarkDto>
     {
         Task<PagingData<ExtendedMarkDto>> Search(MarkParameter param);
-        Task<IEnumerable<ExtendedMarkDto>> GetByGroup(int groupId);
+        Task<IEnumerable<ExtendedMarkDto>> GetByGroup(int groupId, bool isClose);
     }
 }

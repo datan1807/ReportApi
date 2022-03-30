@@ -11,11 +11,6 @@ namespace Api.Models
     [Table("Submit")]
     public partial class Submit
     {
-        public Submit()
-        {
-            TeacherEvaluations = new HashSet<TeacherEvaluation>();
-        }
-
         [Key]
         public int Id { get; set; }
         public int ReportId { get; set; }
@@ -25,6 +20,8 @@ namespace Api.Models
         [Required]
         [StringLength(250)]
         public string ReportUrl { get; set; }
+        [StringLength(250)]
+        public string Comment { get; set; }
 
         [ForeignKey(nameof(GroupId))]
         [InverseProperty("Submits")]
@@ -32,7 +29,5 @@ namespace Api.Models
         [ForeignKey(nameof(ReportId))]
         [InverseProperty("Submits")]
         public virtual Report Report { get; set; }
-        [InverseProperty(nameof(TeacherEvaluation.Submit))]
-        public virtual ICollection<TeacherEvaluation> TeacherEvaluations { get; set; }
     }
 }

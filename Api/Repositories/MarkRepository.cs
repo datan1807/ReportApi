@@ -17,7 +17,7 @@ namespace Api.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<ExtendedMark>> GetByGroup(int groupId)
+        public async Task<IEnumerable<ExtendedMark>> GetByGroup(int groupId, bool isClose)
         {
             var entities = await _context.AccountGroups.Where(a => a.GroupId == groupId).Join(
                 _context.Marks,
@@ -42,8 +42,10 @@ namespace Api.Repositories
                     ProjectId = a.Group.ProjectId,
                     ProjectName = a.Group.Project.ProjectName,
                     Semester = a.Group.Semester,
-                    Year = a.Group.Year
+                    Year = a.Group.Year,
+                    IsClose = m.IsClose
                 }).ToListAsync();
+            entities = entities.Where(a => a.IsClose == isClose).ToList();
             return entities;
             //var entities = await _context.Marks.Where(m => m.Account.RoleId == role).Join(
             //    _context.AccountGroups,
@@ -84,7 +86,8 @@ namespace Api.Repositories
                     Report6 = m.Report6,
                     Final = m.Final,
                     Status = m.Status,
-                    Report7 = m.Report7
+                    Report7 = m.Report7,
+                    IsClose = m.IsClose
                 }).OrderByDescending(o => o.Year)
                 .ToListAsync();
             if (!String.IsNullOrEmpty(param.AccountCode))

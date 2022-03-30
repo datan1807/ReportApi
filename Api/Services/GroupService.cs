@@ -129,7 +129,7 @@ namespace Api.Services
         }
         public async Task InsertMark(int memberId)
         {
-            MarkDto mark = new MarkDto { AccountId = memberId };
+            MarkDto mark = new MarkDto { AccountId = memberId, isClose = false };
             var entity = _mapper.Map<Mark>(mark);
             await _unitOfWork.MarkRepository.Insert(entity);
         }

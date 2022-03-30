@@ -15,7 +15,6 @@ namespace Api.Models
         {
             AccountGroups = new HashSet<AccountGroup>();
             Marks = new HashSet<Mark>();
-            TeacherEvaluations = new HashSet<TeacherEvaluation>();
         }
 
         [Required]
@@ -49,7 +48,5 @@ namespace Api.Models
         public virtual ICollection<AccountGroup> AccountGroups { get; set; }
         [InverseProperty(nameof(Mark.Account))]
         public virtual ICollection<Mark> Marks { get; set; }
-        [InverseProperty(nameof(TeacherEvaluation.Teacher))]
-        public virtual ICollection<TeacherEvaluation> TeacherEvaluations { get; set; }
     }
 }

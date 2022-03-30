@@ -24,6 +24,8 @@ namespace Api.Models
         [StringLength(50)]
         public string Status { get; set; }
         public double? Final { get; set; }
+        [Column("isClose")]
+        public bool? IsClose { get; set; }
 
         [ForeignKey(nameof(AccountId))]
         [InverseProperty("Marks")]

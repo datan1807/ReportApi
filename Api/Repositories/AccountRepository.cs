@@ -89,7 +89,7 @@ namespace Api.Repositories
                 RoleName = e.Role.Name,
                 Status = e.Status,
                 Id = e.Id
-            }).ToListAsync();
+            }).OrderByDescending(e => e.Id).ToListAsync();
             if(!String.IsNullOrEmpty(param.Status))
             {
                 entity = entity.Where(e => e.Equals(param.Status)).ToList();
