@@ -29,9 +29,15 @@ namespace Api.Services
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<ExtendedMarkDto>> GetByGroup(int groupId, bool isClose)
+        public async Task<MarkDto> GetByAccount(int accountId)
         {
-            var entities = await _unitOfWork.MarkRepository.GetByGroup(groupId, isClose);
+            var entity = await _unitOfWork.MarkRepository.Get(m => m.AccountId == accountId);
+            return _mapper.Map<MarkDto>(entity);
+        }
+
+        public async Task<IEnumerable<ExtendedMarkDto>> GetByGroup(int groupId, bool isClose, int roleId)
+        {
+            var entities = await _unitOfWork.MarkRepository.GetByGroup(groupId, isClose, roleId);
             var result = entities.Select(x => new ExtendedMarkDto
             {
                 Id = x.Id,

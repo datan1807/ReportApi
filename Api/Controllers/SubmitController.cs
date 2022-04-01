@@ -68,9 +68,14 @@ namespace Api.Controllers
                 };
             }
 
-            await _service.Update(submit);
+            try {
+                await _service.Update(submit);
 
-            return new ResponseObject { status = "success" };
+                return new ResponseObject { status = "success" };
+            } catch
+            {
+                return new ResponseObject { status = "false" };
+            }
         }
 
         // POST: api/Submits

@@ -92,14 +92,25 @@ namespace Api.Controllers
         }
 
         [HttpGet("get-by-group")]
-        public async Task<ResponseObject> GetByGroup(int groupId, int isClosed)
+        public async Task<ResponseObject> GetByGroup(int groupId, int isClosed, int roleId)
         {
             var close = false;
             if(isClosed > 0)
             {
                 close = true;
             }
-            var entities = await _service.GetByGroup(groupId, close);
+            var entities = await _service.GetByGroup(groupId, close, int roleId);
+            return new ResponseObject
+            {
+                data = entities,
+                status = "success"
+            };
+        }
+        [HttpGet("get-by-account/{accountId}")]
+        public async Task<ResponseObject> GetByAccount(int accountId)
+        {
+            
+            var entities = await _service.GetByAccount(accountId);
             return new ResponseObject
             {
                 data = entities,

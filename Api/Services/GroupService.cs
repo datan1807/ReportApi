@@ -98,6 +98,13 @@ namespace Api.Services
                 {
                     await InsertMember(member, "Member", groupId);
                 }
+                await InsertSubmit(groupId, 0);
+                await InsertSubmit(groupId, 1);
+                await InsertSubmit(groupId, 2);
+                await InsertSubmit(groupId, 3);
+                await InsertSubmit(groupId, 5);
+                await InsertSubmit(groupId, 6);
+                await InsertSubmit(groupId, 7);
                 var project = await _unitOfWork.ProjectRepository.GetById(groupEntity.ProjectId);
                 project.Status = Constants.STATUS.INACTIVE;
                 await _unitOfWork.ProjectRepository.Update(project);
@@ -162,6 +169,17 @@ namespace Api.Services
             var dto = _mapper.Map<Group>(entity);
             await _unitOfWork.GroupRepository.Update(dto);
             await _unitOfWork.CompleteAsync();
+        }
+
+        private async Task InsertSubmit(int groupId, int reportId)
+        {
+            SubmitDto dto = new SubmitDto
+            {
+                GroupId = groupId,
+                ReportId = reportId
+            };
+            var entity = _mapper.Map<Submit>(dto);
+            await _unitOfWork.SubmitRepository.Insert(entity);
         }
     }
 }

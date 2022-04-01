@@ -25,7 +25,9 @@ namespace Api.Repositories
                 ProjectName = c.Group.Project.ProjectName,
                 ReportName = c.Report.Title,
                 ReportUrl = c.ReportUrl,
-                SubmitTime = c.SubmitTime
+                SubmitTime = c.SubmitTime,
+                GroupId = c.GroupId,
+                ProjectId = c.Group.ProjectId
             }).FirstOrDefaultAsync();
 #pragma warning disable CS8603 // Possible null reference return.
             return entity;

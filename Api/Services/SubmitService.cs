@@ -50,6 +50,8 @@ namespace Api.Services
                     ReportName = entity.ReportName,
                     SubmitTime = entity.SubmitTime,
                     ReportUrl = entity.ReportUrl,
+                    ProjectId = entity.ProjectId,
+                    GroupId = entity.GroupId,
                 };
             }
             else
