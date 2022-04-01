@@ -106,16 +106,18 @@ namespace Api.Controllers
                 status = "success"
             };
         }
-        [HttpGet("get-by-account/{accountId}")]
-        public async Task<ResponseObject> GetByAccount(int accountId)
+        [HttpPost("submit-mark")]
+        public async Task<ResponseObject> GetByAccount([FromBody] List<MarkDto> listMarks)
         {
-            
-            var entities = await _service.GetByAccount(accountId);
-            return new ResponseObject
+            try {
+            await _service.SubmitMark(listMarks);
+                return new ResponseObject { status = "success" };
+            } catch(Exception ex)
             {
-                data = entities,
-                status = "success"
-            };
+                return new ResponseObject { status = "error" };
+            }
+           
+            
         }
     }
 }

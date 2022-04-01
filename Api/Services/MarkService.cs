@@ -113,6 +113,26 @@ namespace Api.Services
             return result;
         }
 
+        public async Task SubmitMark(List<MarkDto> listMarks)
+        {
+            foreach (var mark in listMarks)
+            {
+                var result = (mark.Report1 + mark.Report2 +mark.Report3 + mark.Report4 + mark.Report5 + mark.Report6 + mark.Report7) / 7;
+                if(result > 5)
+                {
+                    mark.Status = "Pass";
+                }
+                else
+                {
+                    mark.Status = "Fail";
+                }
+                mark.isClose = true;
+                var entity = _mapper.Map<Mark>(mark);
+                await _unitOfWork.MarkRepository.Update(entity);
+            }
+            await _unitOfWork.CompleteAsync();
+        }
+
         public async Task Update(MarkDto entity)
         {
             var dto = _mapper.Map<Mark>(entity);
