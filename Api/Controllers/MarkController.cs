@@ -99,7 +99,7 @@ namespace Api.Controllers
             {
                 close = true;
             }
-            var entities = await _service.GetByGroup(groupId, close, int roleId);
+            var entities = await _service.GetByGroup(groupId, close,  roleId);
             return new ResponseObject
             {
                 data = entities,
