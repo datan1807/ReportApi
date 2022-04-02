@@ -17,6 +17,29 @@ namespace Api.Repositories
             _context = context;
         }
 
+        public async Task<ExtendedMark> GetByAccount(int accountId)
+        {
+            return await _context.Marks.Where(m => m.AccountId == accountId).Select(m => new ExtendedMark
+            {
+                Id = m.Id,
+                AccountId = m.AccountId,
+                AccountCode = m.Account.AccountCode,
+                Email = m.Account.Email,
+                Fullname = m.Account.Fullname,
+                IsClose = m.IsClose,
+                Report1 = m.Report1,
+                Report2 = m.Report2,
+                Report3 = m.Report3,
+                Report4 = m.Report4,
+                Report5 = m.Report5,
+                Report6 = m.Report6,
+                Report7 = m.Report7,
+                Status = m.Status,
+                Final   = m.Final,
+
+            }).FirstOrDefaultAsync();
+        }
+
         public async Task<IEnumerable<ExtendedMark>> GetByGroup(int groupId, bool isClose, int roleId)
         {
             var entities = await _context.AccountGroups.Where(a => a.GroupId == groupId).Join(

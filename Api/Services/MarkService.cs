@@ -35,6 +35,27 @@ namespace Api.Services
             return _mapper.Map<MarkDto>(entity);
         }
 
+        public async Task<ExtendedMarkDto> GetByAccountId(int accountId)
+        {
+            var entity = await _unitOfWork.MarkRepository.GetByAccount(accountId);
+            return new ExtendedMarkDto
+            {
+                Id = entity.Id,
+                Fullname = entity.Fullname,
+                AccountCode = entity.AccountCode,
+                Report1 = entity.Report1,
+                Report2 = entity.Report2,
+                Report3 = entity.Report3,
+                Report4 = entity.Report4,
+                Report5 = entity.Report5,
+                Report6 = entity.Report6,
+                Report7 = entity.Report7,
+                Final = entity.Final,
+                Status = entity.Status,
+                AccountId = entity.AccountId
+            };
+        }
+
         public async Task<IEnumerable<ExtendedMarkDto>> GetByGroup(int groupId, bool isClose, int roleId)
         {
             var entities = await _unitOfWork.MarkRepository.GetByGroup(groupId, isClose, roleId);

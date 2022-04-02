@@ -119,5 +119,21 @@ namespace Api.Controllers
            
             
         }
+
+        [HttpGet("get-by-account")]
+        public async Task<ResponseObject> GetByAccountId(int accountId)
+        {
+            try
+            {
+                var entity = await _service.GetByAccountId(accountId);
+                return new ResponseObject { status = "success", data = entity };
+            }
+            catch (Exception ex)
+            {
+                return new ResponseObject { status = "error" };
+            }
+
+
+        }
     }
 }

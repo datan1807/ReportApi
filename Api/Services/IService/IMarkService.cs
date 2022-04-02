@@ -12,5 +12,7 @@ namespace Api.Services.IService
         Task<MarkDto> GetByAccount(int accountId);
 
         Task SubmitMark(List<MarkDto> listMarks);
+
+        Task<ExtendedMarkDto> GetByAccountId(int accountId);
     }
 }

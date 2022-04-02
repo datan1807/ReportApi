@@ -9,5 +9,6 @@ namespace Api.Repositories.IRepositories
     {
         Task<PagedList<ExtendedMark>> Search(MarkParameter param);
         Task<IEnumerable<ExtendedMark>> GetByGroup(int groupId, bool isClose, int roleId);
+        Task<ExtendedMark> GetByAccount(int accountId);
     }
 }
